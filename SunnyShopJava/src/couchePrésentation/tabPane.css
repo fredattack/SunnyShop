@@ -98,7 +98,7 @@
      -fx-font-weight: bold;
 }
 
-.vinTable{
+.Table{
 	-fx-background-color:  #EBEFCB;	
 	-fx-focus-color: transparent;
 	-fx-text-fill : #625349;
@@ -107,7 +107,7 @@
    
 }
 
-.vinTable .column-header, .column-header .label {
+.Table .column-header, .column-header .label {
 	-fx-background-color:  #98D6CC;
     -fx-text-fill: #625349;
     -fx-font-weight: bold;
@@ -153,15 +153,13 @@
 	-fx-text-fill : #625349;
      -fx-text-alignment: center;	
      -fx-font-weight: bold;
-	
- 
 }
 
 .gridChange .label{
 	-fx-text-fill: #625349;  
     -fx-font-weight: bold;
-    
 }
+
 .cbSaveur .list-cell, .cbMat .list-cell, .cbType .list-cell, .cbProvenance .list-cell,.cbFamille .list-cell{
 	-fx-min-width: 150px;
     -fx-max-width: 150px;
@@ -177,14 +175,15 @@
 
 .cbSaveur .cbMat .cbType .cbProvenance .cbFamille{
 	fx-background-color:#98D6CC ;
-     
 }
 
-.tfQuantiteCaisse, .tfStockVin{
+.tfQuantiteCaisse, .tfStockVin,.tfStockAlcool,.tfDegre{
 	-fx-min-width: 100px;
     -fx-max-width: 100px; 
-    
 }
+
+
+	
 
 /*
  *	gestionStockVin 

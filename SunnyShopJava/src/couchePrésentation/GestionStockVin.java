@@ -28,7 +28,7 @@ public class GestionStockVin {
 		
 		thisScene = new Scene(anchor,LARGEUR, HAUTEUR);
 		stage.setScene(thisScene);
-		thisScene.getStylesheets().add("couchePrésentation/tabPane.css");
+		anchor.getStylesheets().add("couchePrésentation/tabPane.css");
 	    stage.initOwner(fenparent);
 	    stage.initModality(Modality.NONE);
 	    stage.showAndWait();

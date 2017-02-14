@@ -65,7 +65,7 @@ public class MainStage extends Application {
 	private static VBox vboxSectionLeft = new VBox(10);	
 	
 	private static TableView<Vin> vinTable = new TableView<Vin>();	
-	private static TableView<Alcool> alcoolTable;
+	private static TableView<Alcool> alcoolTable = new TableView<Alcool>();
 	private static HBox hboxTopSearch = new HBox(27);
 	private static HBox hboxMid = new HBox(10);
 	private static HBox hboxFooterRight = new HBox(10);
@@ -120,16 +120,18 @@ public class MainStage extends Application {
     MainStage.setScene(scene);
     MainStage.show();
     
-    //anchorContent
-    anchor.getChildren().addAll(vboxSectionLeft,hboxFooterRight,vboxRightButton,hboxTopSearch,vinTable,hboxMid,
+    //anchorContent @start
+    anchor.getChildren().addAll(vboxSectionLeft,hboxFooterRight,vboxRightButton,hboxTopSearch,vinTable,alcoolTable, hboxMid,
     		vboxRightImage,gridChange);
     vinTable.setVisible(false);
+    alcoolTable.setVisible(false);
     
     // startContent
     
     createStartContent(MainStage);
 	}
 	
+	//create strat content
 	public void createStartContent(Stage MainStage) {
 		
 		closeWindowButton(MainStage);
@@ -180,7 +182,7 @@ public class MainStage extends Application {
 	
 	//createCommonPane Container (Multiple Pane usable)
 		@SuppressWarnings({ "static-access"})
-		public void createCommonContainer(Stage MainStage) {
+	public void createCommonContainer(Stage MainStage) {
 			
 			
 			// Css Conteneur
@@ -205,10 +207,14 @@ public class MainStage extends Application {
 	        Button btAlcool=new Button("Alcool");
 	        btAlcool.setOnAction(e->
 	        {         	
-	        	
+	        	createZoneAlcool(MainStage);
 	        });
 	        
 	        Button btChemise=new Button("Chemise");
+	        btChemise.setOnAction(e->
+	        {         	
+	        	createZoneChemise(MainStage);
+	        });
 	        vboxRightButton.getChildren().addAll(btVin,btAlcool,btChemise);
 	        vboxRightButton.getStyleClass().add("vboxRight");
 	        
@@ -217,38 +223,63 @@ public class MainStage extends Application {
 	        
 		}
 		
+	//Close window button
+	public void closeWindowButton(Stage MainStage) {
+		hboxFooterRight.getStyleClass().add("hboxFooterRight");
 		
-
-		//Close window button
-		public void closeWindowButton(Stage MainStage) {
-			hboxFooterRight.getStyleClass().add("hboxFooterRight");
-			
-			// Position AnchorPane
-			anchor.setBottomAnchor(hboxFooterRight, 20.0);
-			anchor.setRightAnchor(hboxFooterRight, 25.0);
-			
-			Button btQuitter=new Button("Quitter");
-	        btQuitter.setOnAction(e -> { MainStage.close(); });        
-	        hboxFooterRight.getChildren().add(btQuitter);
-	       
-		}
+		// Position AnchorPane
+		anchor.setBottomAnchor(hboxFooterRight, 20.0);
+		anchor.setRightAnchor(hboxFooterRight, 25.0);
 		
-		//createVinzone
-		private void createZoneVin(Stage mainStage) {
-			hboxTopSearch.getChildren().clear();
-			hboxMid.getChildren().clear();		
-			vinTable.getColumns().clear();
-			vboxRightImage.getChildren().clear();
-			gridChange.getChildren().clear();
-			vinTable.setVisible(true);
-			createHboxSearch();
-			createTableVin();
-			createHboxMidManageProduct(mainStage);
-			createGridePaneChangeVin(gridChange, vboxRightImage);
-			
-		}
-		
+		Button btQuitter=new Button("Quitter");
+        btQuitter.setOnAction(e -> { MainStage.close(); });        
+        hboxFooterRight.getChildren().add(btQuitter);
+       
+	}
 	
+	//createVinzone
+	private void createZoneVin(Stage mainStage) {
+		clearAnchorProduct();
+		vinTable.setVisible(true);
+		createHboxSearch();
+		createTableVin();
+		createHboxMidManageProduct(mainStage);
+		createGridePaneChangeVin(gridChange, vboxRightImage);
+		
+	}
+	
+	//create Zone Alcool
+	private void createZoneAlcool(Stage mainStage){
+		clearAnchorProduct();
+		createTableAlcool();
+		alcoolTable.setVisible(true);
+		createHboxSearch();
+		createHboxMidManageProduct(mainStage);
+		createGridePaneChangeAlcool(gridChange, vboxRightImage);
+		
+	}
+	
+	//create zone chemise
+	
+	private void createZoneChemise(Stage mainStage)
+	{
+		clearAnchorProduct();
+		createHboxSearch();
+		createHboxMidManageProduct(mainStage);
+	}
+	
+	//clear AnchorProduct
+	public void clearAnchorProduct() {
+		hboxTopSearch.getChildren().clear();
+		hboxMid.getChildren().clear();		
+		vinTable.getColumns().clear();
+		alcoolTable.getColumns().clear();
+		vboxRightImage.getChildren().clear();
+		gridChange.getChildren().clear();
+		vinTable.setVisible(false);
+		alcoolTable.setVisible(false);
+		
+	}
 	
 	
 	
@@ -274,13 +305,13 @@ public class MainStage extends Application {
 	anchor.setTopAnchor(vinTable, 90.0);
 	anchor.setLeftAnchor(vinTable, 275.0);
 	
-	vinTable.getStyleClass().add("vinTable");
+	vinTable.getStyleClass().add("Table");
 
 	
 	//création tableau vin
 	TableColumn<Vin, String> idCol = new TableColumn<Vin, String>("ID Produit");
 	TableColumn<Vin, String> descriptionCol = new TableColumn<Vin, String>("Description");
-	descriptionCol.prefWidthProperty().bind(vinTable.widthProperty().multiply(0.2));
+	descriptionCol.prefWidthProperty().bind(vinTable.widthProperty().multiply(0.4045));
 	TableColumn<Vin, String> typeVinCol = new TableColumn<Vin, String>("Type de vin");
     TableColumn<Vin, String> origineCol = new TableColumn<Vin, String>("Origine");
     TableColumn<Vin, String> milleCol = new TableColumn<Vin, String>("Millésime");
@@ -288,6 +319,30 @@ public class MainStage extends Application {
     TableColumn<Vin, Float> StickCol = new TableColumn<Vin, Float>("Stock");
     vinTable.getColumns().addAll(idCol,descriptionCol,typeVinCol, origineCol, milleCol,prixCol,StickCol);
 	}
+	
+	//create alcoolTable
+	private void createTableAlcool() {
+		
+	anchor.setTopAnchor(alcoolTable, 90.0);
+	anchor.setLeftAnchor(alcoolTable, 275.0);
+		
+	alcoolTable.getStyleClass().add("Table");
+		
+	//création tableau alcool
+	TableColumn<Alcool, String> idCol = new TableColumn<Alcool, String>("ID Produit");
+	TableColumn<Alcool, String> descriptionCol = new TableColumn<Alcool, String>("Description");
+	descriptionCol.prefWidthProperty().bind(alcoolTable.widthProperty().multiply(0.4045));
+	TableColumn<Alcool, String> familleCol = new TableColumn<Alcool, String>("Famille");
+	TableColumn<Alcool, String> origineCol = new TableColumn<Alcool, String>("Origine");
+	TableColumn<Alcool, Float> prixCol = new TableColumn<Alcool, Float>("Prix Unitaire");
+	TableColumn<Alcool, Float> StockCol = new TableColumn<Alcool, Float>("Stock");
+	
+	alcoolTable.getColumns().addAll(idCol,descriptionCol,familleCol, origineCol,
+	    		prixCol,StockCol);
+	alcoolTable.setVisible(false);
+	
+	}
+	
 	
 	//createHboxMidManageProduct
 	public void createHboxMidManageProduct(Stage MainStage) {
@@ -319,7 +374,7 @@ public class MainStage extends Application {
 		}
 	
 	//createGridPaneVin
-		public void createGridePaneChangeVin(GridPane gridChange, VBox vboxRightImage) {
+	public void createGridePaneChangeVin(GridPane gridChange, VBox vboxRightImage) {
 			gridChange.setHgap(10);
 	        gridChange.setVgap(5);
 	        gridChange.setAlignment(Pos.CENTER);
@@ -400,37 +455,9 @@ public class MainStage extends Application {
 			
 			
 		}
-/*
-	private void createTableAlcool() {
-		
-	anchor.setTopAnchor(alcoolTable, 90.0);
-	anchor.setLeftAnchor(alcoolTable, 25.0);
-		
-	vinTable.getStyleClass().add("vinTable");
-		
-	//création tableau vin
-	TableColumn<Alcool, String> idCol = new TableColumn<Alcool, String>("ID Produit");
-	TableColumn<Alcool, String> descriptionCol = new TableColumn<Alcool, String>("Description");
-	descriptionCol.prefWidthProperty().bind(alcoolTable.widthProperty().multiply(0.4045));
-	TableColumn<Alcool, String> familleCol = new TableColumn<Alcool, String>("Famille");
-	TableColumn<Alcool, String> origineCol = new TableColumn<Alcool, String>("Origine");
-	TableColumn<Alcool, Float> prixCol = new TableColumn<Alcool, Float>("Prix Unitaire");
-	TableColumn<Alcool, Float> StockCol = new TableColumn<Alcool, Float>("Stock");
-	
-	alcoolTable.getColumns().addAll(idCol,descriptionCol,familleCol, origineCol,
-	    		prixCol,StockCol);
-	alcoolTable.setVisible(false);
-	anchor.getChildren().add(alcoolTable);
-	
-	}
-	
-	
-	
 
-	
-
-	//createGridPaneVin
-	public void createGridePaneChangeVin(GridPane gridChange, VBox vboxRightImage) {
+	//create GridPane Change ALCOOl
+	public void createGridePaneChangeAlcool(GridPane gridChange, VBox vboxRightImage) {
 		gridChange.setHgap(10);
         gridChange.setVgap(5);
         gridChange.setAlignment(Pos.CENTER);
@@ -439,7 +466,7 @@ public class MainStage extends Application {
         gridChange.getStyleClass().add("gridChange");
         
         anchor.setBottomAnchor(gridChange, GridPosition);
-		anchor.setLeftAnchor(gridChange, 20.0);
+		anchor.setLeftAnchor(gridChange, 275.0);
 		anchor.setBottomAnchor(vboxRightImage,90.0);
 		anchor.setRightAnchor(vboxRightImage, 25.0);
 		
@@ -447,10 +474,6 @@ public class MainStage extends Application {
         gridChange.add(tfNomSearch,0,0,2,1);
         tfNomSearch.getStyleClass().add("tfNomSearch");
         
-        ComboBox<String> cbMat = new ComboBox<>(); 
-        cbMat.setValue("Maturité");
-        gridChange.add(cbMat, 0, 1, 1, 1);
-        cbMat.getStyleClass().add("cbMat");
         
         Label laQuantiteCaisse = new Label("Quantité par Caisse");
         gridChange.add(laQuantiteCaisse, 0, 2,1,1);
@@ -458,31 +481,31 @@ public class MainStage extends Application {
         TextField tfQuantiteCaisse = new TextField();
         gridChange.add(tfQuantiteCaisse,1, 2, 1, 1);
         tfQuantiteCaisse.getStyleClass().add("tfQuantiteCaisse");
-        ComboBox<String> cbSaveur = new ComboBox<>(); 
-        
-        cbSaveur.setValue("Saveur");
-        gridChange.add(cbSaveur,3,1,1,1 ); 
-        cbSaveur.getStyleClass().add("cbSaveur");
+
+        TextField tfGout = new TextField("Gout"); 
+        gridChange.add(tfGout,3,1,1,1 ); 
+        tfGout.getStyleClass().add("tfGout");
         
         Label laStock = new Label("Quantité en stock");
         gridChange.add(laStock, 0, 3,1,1);
         
-        TextField tfStockVin = new TextField();
-        gridChange.add(tfStockVin,1,3,1,1);
-        tfStockVin.getStyleClass().add("tfStockVin");
+        TextField tfStockAlcool = new TextField();
+        gridChange.add(tfStockAlcool,1,3,1,1);
+        tfStockAlcool.getStyleClass().add("tfStockAlcool");
        
-        ComboBox<String> cbType = new ComboBox<>(); 
-        cbType.setValue("Type de vin");
-        gridChange.add(cbType, 3, 0, 1, 1);
-        cbType.getStyleClass().add("cbType");
+        ComboBox<String> cbFamille = new ComboBox<>(); 
+        cbFamille.setValue("Famille");
+        gridChange.add(cbFamille, 3, 0, 1, 1);
+        cbFamille.getStyleClass().add("cbFamille");
         
         ComboBox<String> cbProvenance = new ComboBox<>();
         cbProvenance.setValue("Provenance");
         gridChange.add(cbProvenance, 4, 0,1,1);
         cbProvenance.getStyleClass().add("cbProvenance");
         
-        TextField tfMillesime = new TextField("Millésime");
-        gridChange.add(tfMillesime,4,1,1,1);
+        TextField tfDegreAlcool = new TextField("Degré");
+        gridChange.add(tfDegreAlcool,4,1,1,1);
+        tfDegreAlcool.getStyleClass().add("tfDegre");
         
         TextField tfImageName = new TextField("Image");
         gridChange.add(tfImageName,3,2,1,1);
@@ -509,7 +532,6 @@ public class MainStage extends Application {
         vboxRightImage.getStyleClass().add("vboxRightImage");
 		vboxRightImage.setVisible(false);
 		
-		anchor.getChildren().addAll(vboxRightImage,gridChange);
 	}
 
 	/*
