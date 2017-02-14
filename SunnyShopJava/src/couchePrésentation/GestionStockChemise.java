@@ -31,17 +31,21 @@ public class GestionStockChemise {
 	@SuppressWarnings("unchecked")
 	public GestionStockChemise(Stage fenParent){
 	
-	// 
+	
 		// APZonesFenetre -> Scene; Scene -> Stage
 		SceneObj = new Scene(APZonesFenetre, LARGEUR, HAUTEUR);
 		Fenetre.setScene(SceneObj);
+		
 		// charger les styles CSS
-		//SceneObj.getStylesheets().add("couchePresentation/tabPane.css");
+		SceneObj.getStylesheets().add("couchePresentation/tabPane.css");
+		
 		// centrer la fenêtre p/r à la fenêtre parent, la mettre en avant plan et l'afficher
-		Fenetre.setTitle("Lister les cours");
+		Fenetre.setTitle("Stock chemise");
 		Fenetre.setResizable(false);
+		
 		Fenetre.setX(fenParent.getX() + (fenParent.getWidth() - LARGEUR) / 2);
 		Fenetre.setY(fenParent.getY() + (fenParent.getHeight() - LARGEUR) / 2);
+		
 		Fenetre.initOwner(fenParent);
 		Fenetre.initModality(Modality.APPLICATION_MODAL);
 		Fenetre.showAndWait();
