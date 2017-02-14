@@ -160,7 +160,7 @@
     -fx-font-weight: bold;
 }
 
-.cbSaveur .list-cell, .cbMat .list-cell, .cbType .list-cell, .cbProvenance .list-cell,.cbFamille .list-cell{
+.cbSaveur .list-cell, .cbMat .list-cell, .cbType .list-cell, .cbProvenance .list-cell,.cbFamille .list-cell,.cbTaille .list-cell{
 	-fx-min-width: 150px;
     -fx-max-width: 150px;
     -fx-font-weight: bold;
@@ -173,7 +173,7 @@
 	 -fx-font-size: 18px;  
 }
 
-.cbSaveur .cbMat .cbType .cbProvenance .cbFamille{
+.cbSaveur .cbMat .cbType .cbProvenance .cbFamille,.cbTaille{
 	fx-background-color:#98D6CC ;
 }
 

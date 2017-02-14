@@ -4,15 +4,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
-//@SuppressWarnings("unused")
-public class GestionStockVin {
-	
+public class GestionStockAlcool {
+
 	private static final int LARGEUR = 544;
 	private static final int HAUTEUR = 394;
 
@@ -22,34 +21,24 @@ public class GestionStockVin {
 	private String StockVal = "25";
 	private String quantitéCaisse = "6";
 	private AnchorPane anchor = new AnchorPane();
-	HBox hboxTop = new HBox();
-	HBox hboxBottom = new HBox(30);
-	VBox vboxCheck = new VBox(10);
 	
-	 public GestionStockVin(Stage fenParent ) {
-		
+	public GestionStockAlcool(Stage fenParent ) 
+	{
 	thisScene = new Scene(anchor,LARGEUR, HAUTEUR);
 	stage.setScene(thisScene);
-	
-	thisScene.getStylesheets().add("couchePrésentation/tabPane.css");
-	thisScene.setFill(Color.TRANSPARENT);
-	stage.setTitle("StockVal");
+	anchor.getStylesheets().add("couchePrésentation/tabPane.css");
     stage.initOwner(fenParent);
-    stage.initModality(Modality.APPLICATION_MODAL); 
-  //  stage.initStyle(StageStyle.DECORATED);
+    stage.initModality(Modality.NONE);
     stage.showAndWait();
-    //stage.setX(fenParent.getX() +(fenParent.getMaxWidth()-LARGEUR)/2);
-    //stage.setY(fenParent.getY() +(fenParent.getMaxHeight()-HAUTEUR)/2);
-   
     remplirAnchor(stage);
 	}
-
 	
-	//@SuppressWarnings("static-access")
-	private void remplirAnchor(Stage stage) {
-		
-		
-		//thisScene.getStylesheets().add("couchePrésentation/tabPane.css");
+    private void remplirAnchor(Stage stage) 
+    {
+		HBox hboxTop = new HBox();
+		HBox hboxBottom = new HBox(30);
+		VBox vboxCheck = new VBox(10);
+		thisScene.getStylesheets().add("couchePrésentation/tabPane.css");
 		anchor.getStyleClass().add("anchor");
 		
 		// hboxBottom settings
@@ -77,8 +66,9 @@ public class GestionStockVin {
         CheckBox cbParBout = new CheckBox("Ajouter par bouteille");
         vboxCheck.getChildren().addAll(cbParBout,cbParCaisse);     
         
-        anchor.getChildren().addAll(hboxTop,hboxBottom,vboxCheck);
+        anchor.getChildren().addAll(hboxBottom,hboxTop,vboxCheck);
 	}
-
+	
+	
 	
 }

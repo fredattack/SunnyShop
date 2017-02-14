@@ -45,6 +45,7 @@ import java.nio.channels.NetworkChannel;
 import java.time.Duration;
 
 import classesMétiers.Alcool;
+import classesMétiers.Chemise;
 import classesMétiers.Vin;
 import coucheAccesBd.ExceptionAccesBd;
 import coucheMétier.*;
@@ -60,12 +61,13 @@ public class MainStage extends Application {
 	// déclaratiens des conteneurs
 	private Scene scene;
 	
-    private BorderPane mainPane = new BorderPane();
+    //private BorderPane mainPane = new BorderPane();
 	private static final AnchorPane anchor = new AnchorPane();
 	private static VBox vboxSectionLeft = new VBox(10);	
 	
 	private static TableView<Vin> vinTable = new TableView<Vin>();	
 	private static TableView<Alcool> alcoolTable = new TableView<Alcool>();
+	private static TableView<Chemise> chemiseTable = new TableView<Chemise>();
 	private static HBox hboxTopSearch = new HBox(27);
 	private static HBox hboxMid = new HBox(10);
 	private static HBox hboxFooterRight = new HBox(10);
@@ -108,10 +110,6 @@ public class MainStage extends Application {
 	scene.getStylesheets().add("couchePrésentation/tabPane.css");
 	anchor.getStyleClass().add("anchor");
     
-	mainPane.prefHeightProperty().bind(scene.heightProperty());
-    mainPane.prefWidthProperty().bind(scene.widthProperty());
-    
-	
     
      // MainStage Designer
  
@@ -121,64 +119,73 @@ public class MainStage extends Application {
     MainStage.show();
     
     //anchorContent @start
-    anchor.getChildren().addAll(vboxSectionLeft,hboxFooterRight,vboxRightButton,hboxTopSearch,vinTable,alcoolTable, hboxMid,
-    		vboxRightImage,gridChange);
+    anchor.getChildren().addAll(vboxSectionLeft,hboxFooterRight,vboxRightButton,hboxTopSearch,vinTable,alcoolTable,
+    		chemiseTable, hboxMid,vboxRightImage,gridChange);
     vinTable.setVisible(false);
     alcoolTable.setVisible(false);
-    
+    chemiseTable.setVisible(false);
+
     // startContent
-    
     createStartContent(MainStage);
 	}
 	
 	//create strat content
 	public void createStartContent(Stage MainStage) {
 		
-		closeWindowButton(MainStage);
-		
-		// Css Conteneur
-		vboxSectionLeft.getStyleClass().add("vboxSectionLeft");
-				
-		// Position AnchorPane
-		anchor.setTopAnchor(vboxSectionLeft,25.0);
-		anchor.setLeftAnchor(vboxSectionLeft, 25.0);
-		
-		Button btProduit = new Button("Produits");
-		btProduit.setOnAction(e->
-	        { 
-	        	vboxRightButton.getChildren().clear();
-	        	vboxSectionLeft.getChildren().clear();
-	        	hboxFooterRight.getChildren().clear();
-	        	createStartContent(MainStage);
-	        	createCommonContainer(MainStage);
-	        	
-	        	//closeWindowButton(MainStage);
-	        });
-		Button btCommandes = new Button("Commandes");
-		btCommandes.setOnAction(e->
+	closeWindowButton(MainStage);
+	
+	// Css Conteneur
+	vboxSectionLeft.getStyleClass().add("vboxSectionLeft");
+			
+	// Position AnchorPane
+	anchor.setTopAnchor(vboxSectionLeft,25.0);
+	anchor.setLeftAnchor(vboxSectionLeft, 25.0);
+	
+	Button btProduit = new Button("Produits");
+	btProduit.setOnAction(e->
         { 
         	vboxRightButton.getChildren().clear();
         	vboxSectionLeft.getChildren().clear();
         	hboxFooterRight.getChildren().clear();
         	createStartContent(MainStage);
+        	createCommonContainer(MainStage);
         	
+        	//closeWindowButton(MainStage);
         });
-		Button btClients = new Button("Produits");
-		btClients.setOnAction(e->
-        { 
-        	vboxRightButton.getChildren().clear();
-        	vboxSectionLeft.getChildren().clear();
-        	hboxFooterRight.getChildren().clear();
-        	createStartContent(MainStage);
-        	
-        });
-		
-		vboxSectionLeft.getChildren().addAll(btProduit,btCommandes,btClients);
-		
-		
-		 //création hboxFooter---> Quitter
+	Button btCommandes = new Button("Commandes");
+	btCommandes.setOnAction(e->
+    { 
+    	clearAnchorProduct();
+    	vboxRightButton.getChildren().clear();
+    	vboxSectionLeft.getChildren().clear();
+    	hboxFooterRight.getChildren().clear();
+    	createStartContent(MainStage);
+    	
+    });
+	Button btClients = new Button("Produits");
+	btClients.setOnAction(e->
+    { 
+    	clearAnchorProduct();
+    	vboxRightButton.getChildren().clear();
+    	vboxSectionLeft.getChildren().clear();
+    	hboxFooterRight.getChildren().clear();
+    	createStartContent(MainStage);
+    	
+    });
+	
+	vboxSectionLeft.getChildren().addAll(btProduit,btCommandes,btClients);
+	
+	
+	 //création hboxFooter---> Quitter
         
 	}
+	
+	
+	/*
+	 * 
+	 *Zone Produit ---->start
+	 * 
+	 */
 	
 	//createCommonPane Container (Multiple Pane usable)
 		@SuppressWarnings({ "static-access"})
@@ -264,8 +271,11 @@ public class MainStage extends Application {
 	private void createZoneChemise(Stage mainStage)
 	{
 		clearAnchorProduct();
+		createTableChemise();
+		chemiseTable.setVisible(true);
 		createHboxSearch();
 		createHboxMidManageProduct(mainStage);
+		createGridePaneChangeChemise(gridChange, vboxRightImage);
 	}
 	
 	//clear AnchorProduct
@@ -274,14 +284,13 @@ public class MainStage extends Application {
 		hboxMid.getChildren().clear();		
 		vinTable.getColumns().clear();
 		alcoolTable.getColumns().clear();
+		chemiseTable.getColumns().clear();
 		vboxRightImage.getChildren().clear();
 		gridChange.getChildren().clear();
 		vinTable.setVisible(false);
 		alcoolTable.setVisible(false);
-		
+		chemiseTable.setVisible(false);
 	}
-	
-	
 	
 	//createHboxSearch (Multiple Pane usable)
 	public void createHboxSearch() {
@@ -331,7 +340,7 @@ public class MainStage extends Application {
 	//création tableau alcool
 	TableColumn<Alcool, String> idCol = new TableColumn<Alcool, String>("ID Produit");
 	TableColumn<Alcool, String> descriptionCol = new TableColumn<Alcool, String>("Description");
-	descriptionCol.prefWidthProperty().bind(alcoolTable.widthProperty().multiply(0.4045));
+	descriptionCol.prefWidthProperty().bind(alcoolTable.widthProperty().multiply(0.445));
 	TableColumn<Alcool, String> familleCol = new TableColumn<Alcool, String>("Famille");
 	TableColumn<Alcool, String> origineCol = new TableColumn<Alcool, String>("Origine");
 	TableColumn<Alcool, Float> prixCol = new TableColumn<Alcool, Float>("Prix Unitaire");
@@ -343,16 +352,32 @@ public class MainStage extends Application {
 	
 	}
 	
+	//create chemiseTable
+	private void createTableChemise(){
+	anchor.setTopAnchor(chemiseTable, 90.0);
+	anchor.setLeftAnchor(chemiseTable, 275.0);
+		
+	chemiseTable.getStyleClass().add("Table");
+		
+	//création tableau alcool
+	TableColumn<Chemise, String> idCol = new TableColumn<Chemise, String>("ID Produit");
+	TableColumn<Chemise, String> descriptionCol = new TableColumn<Chemise, String>("Description");
+	descriptionCol.prefWidthProperty().bind(chemiseTable.widthProperty().multiply(0.4045));
+	TableColumn<Chemise, String> tailleCol = new TableColumn<Chemise, String>("Taille");
+	TableColumn<Chemise, Float> prixCol = new TableColumn<Chemise, Float>("Prix Unitaire");
+	TableColumn<Chemise, Float> StockCol = new TableColumn<Chemise, Float>("Stock");
+	
+	chemiseTable.getColumns().addAll(idCol,descriptionCol,tailleCol,
+	    		prixCol,StockCol);
+	chemiseTable.setVisible(false);
+	}
 	
 	//createHboxMidManageProduct
 	public void createHboxMidManageProduct(Stage MainStage) {
 			anchor.setBottomAnchor(hboxMid,275.0);
 			anchor.setRightAnchor(hboxMid, 260.0);		
-			
-			
 			  
 			 // création hboxMid ---> STOCK,MODIFIER,AJOUTER
-			   
 			 
 	        Button btModifier = new Button("Modifier article");
 	        btModifier.setOnAction(e -> 
@@ -369,11 +394,20 @@ public class MainStage extends Application {
 	        });   //afficher gridChange 
 	        
 	        Button btStock = new Button("Gestion stock");     
+	        if(vinTable.isVisible()){
 	        btStock.setOnAction(e -> { new GestionStockVin(MainStage); });
+	        }
+	        else if(alcoolTable.isVisible()){
+		        btStock.setOnAction(e -> { new GestionStockAlcool(MainStage); });
+	        }
+	        else if (chemiseTable.isVisible()){
+	        	btStock.setOnAction(e -> { new GestionStockChemise(MainStage); });
+	        }
+	        
 	        hboxMid.getChildren().addAll(btStock,btModifier,btAjouter);
 		}
 	
-	//createGridPaneVin
+	//create GridPane Change VIN
 	public void createGridePaneChangeVin(GridPane gridChange, VBox vboxRightImage) {
 			gridChange.setHgap(10);
 	        gridChange.setVgap(5);
@@ -533,6 +567,77 @@ public class MainStage extends Application {
 		vboxRightImage.setVisible(false);
 		
 	}
+
+	//create GridPane Change VIN
+	public void createGridePaneChangeChemise(GridPane gridChange, VBox vboxRightImage) {
+			gridChange.setHgap(10);
+	        gridChange.setVgap(5);
+	        gridChange.setAlignment(Pos.CENTER);
+	        gridChange.setVisible(false);
+	        
+	        gridChange.getStyleClass().add("gridChange");
+	        
+	        anchor.setBottomAnchor(gridChange, 20.0);
+			anchor.setLeftAnchor(gridChange, 275.0);
+			anchor.setBottomAnchor(vboxRightImage,90.0);
+			anchor.setRightAnchor(vboxRightImage, 25.0);
+			
+	        TextField tfNomSearch = new TextField("Nom");
+	        gridChange.add(tfNomSearch,0,0,2,1);
+	        tfNomSearch.getStyleClass().add("tfNomSearch");
+	        
+	        ComboBox<String> cbMat = new ComboBox<>(); 
+	        cbMat.setValue("Matière");
+	        gridChange.add(cbMat, 0, 1, 1, 1);
+	        cbMat.getStyleClass().add("cbMat");
+	        
+	        ComboBox<String> cbSaveur = new ComboBox<>(); 
+	        cbSaveur.setValue("Saveur");
+	        gridChange.add(cbSaveur,3,1,1,1 ); 
+	        cbSaveur.getStyleClass().add("cbSaveur");
+	        
+	        Label laStock = new Label("Quantité en stock");
+	        gridChange.add(laStock, 0, 3,1,1);
+	        
+	        TextField tfStockVin = new TextField();
+	        gridChange.add(tfStockVin,1,3,1,1);
+	        tfStockVin.getStyleClass().add("tfStockVin");
+	       
+	        ComboBox<String> cbTaille = new ComboBox<>(); 
+	        cbTaille.setValue("Taille");
+	        gridChange.add(cbTaille, 3, 0, 1, 1);
+	        cbTaille.getStyleClass().add("cbTaille");
+	        
+	        TextField tfCouleur = new TextField("Couleur");
+	        gridChange.add(tfCouleur,4,0,1,1);
+	        
+	        TextField tfImageName = new TextField("Image");
+	        gridChange.add(tfImageName,3,2,1,1);
+	        
+	        Button btImage = new Button("Img");
+	        gridChange.add(btImage,4,2,1,1);
+	        btImage.getStyleClass().add("btImage");
+	        
+	        Button btValider = new Button("Valider");
+	        gridChange.add(btValider,4,3,1,1);
+	        btValider.setOnAction(e -> 
+	        { 
+	        	gridChange.setVisible(false); 
+	        	vboxRightImage.setVisible(false);
+	        });  
+	        btValider.getStyleClass().add("btValider");
+	        
+	        //afficher gridChange 
+	        ToggleButton  rbAfficher = new RadioButton("Afficher le produit");
+	        gridChange.add(rbAfficher, 3, 3,1,1);
+	        rbAfficher.getStyleClass().add("rbAfficher");
+	        
+	        //image
+	        vboxRightImage.getStyleClass().add("vboxRightImage");
+			vboxRightImage.setVisible(false);
+			
+			
+		}
 
 	/*
 	 * 
