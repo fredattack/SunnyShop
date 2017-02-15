@@ -162,7 +162,7 @@ public class MainStage extends Application {
     	createStartContent(MainStage);
     	
     });
-	Button btClients = new Button("Produits");
+	Button btClients = new Button("Clients");
 	btClients.setOnAction(e->
     { 
     	clearAnchorProduct();
@@ -395,7 +395,8 @@ public class MainStage extends Application {
 	        
 	        Button btStock = new Button("Gestion stock");     
 	        if(vinTable.isVisible()){
-	        btStock.setOnAction(e -> { new GestionStockVin(MainStage); });
+	        btStock.setOnAction(e -> { 
+	        	new GestionStockVin(MainStage);});
 	        }
 	        else if(alcoolTable.isVisible()){
 		        btStock.setOnAction(e -> { new GestionStockAlcool(MainStage); });
