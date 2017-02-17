@@ -6,32 +6,11 @@
  	  -fx-min-height: 200px;
     -fx-max-height: 200px;   
  }
- 
-.scene,.anchor{
+
+.scene,.anchor,.Zone{
 	-fx-background-color: #D8E4D1;
 }
 
-.tab-header-background {
-    -fx-background-color: #D8E4D1 ;
-}
-
-.tab:selected {
-	-fx-border: none ;
-	-fx-focus-color: transparent;
-	-fx-background-color:#98D6CC ;
-}
-
-.tab:selected .label{
-	-fx-rotate: 90;
-	-fx-font-size : 26px;
-	-fx-text-fill : #625349;
-}
-
-.tab:hover {
-	-fx-background-color: #D8E4D1;
-	-fx-border: none ;
-	-fx-focus-color: transparent;
-}
 
 .tab:hover .label{
 	-fx-rotate: 90;
@@ -40,24 +19,8 @@
 	/*-fx-font-family: "Segoe UI Semibold";*/
 }
 
-.tab{
-	/*-fx-background-color: #625349;*/
-	-fx-background-color: #625349;     
-    -fx-text-fill: #BBD861; 
-      -fx-padding: 5 22 5 22;   
-    -fx-border-color: #625349;
-    -fx-border-width: 2;
-    -fx-background-radius: 0;   
-    /*-fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif; */
-    -fx-background-insets: 0 0 0 0, 0, 1, 2;
-}
-
 .main {
 		-fx-background-color: #625349;
-}
-
-.TabPane{
-	-fx-background-color: #98D6CC;
 }
 
 .button{
@@ -106,6 +69,18 @@
     -fx-max-width: 770px;
    
 }
+.TableOrder{
+	-fx-background-color:  #EBEFCB;	
+	-fx-focus-color: transparent;
+	-fx-text-fill : #625349;
+	-fx-min-width: 1000px;
+    -fx-max-width: 1000px;
+    
+    -fx-min-height: 350px;
+    -fx-max-height: 350px;
+   
+	
+}
 
 .Table .column-header, .column-header .label {
 	-fx-background-color:  #98D6CC;
@@ -113,8 +88,9 @@
     -fx-font-weight: bold;
      -fx-border-color: #625349;
     -fx-border-width: 1;
-    -fx-min-height: 50px;
-    -fx-max-height: 50px;  
+    /*-fx-min-height: 100px;
+    -fx-max-height: 100px;*/  
+   
 }
 
 .gridChange{
@@ -177,7 +153,7 @@
 	fx-background-color:#98D6CC ;
 }
 
-.tfQuantiteCaisse, .tfStockVin,.tfStockAlcool,.tfDegre,.tfNouveaustock{
+.tfQuantiteCaisse, .tfStockVin,.tfStockAlcool,.tfDegre,.tfNouveaustock,.tfTotal{
 	-fx-min-width: 100px;
     -fx-max-width: 100px; 
 }

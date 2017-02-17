@@ -62,7 +62,8 @@ public class MainStage extends Application {
 	private Scene scene;
 	
     //private BorderPane mainPane = new BorderPane();
-	private static final AnchorPane anchor = new AnchorPane();
+	private static final AnchorPane anchorPrincipal = new AnchorPane();
+	private static final AnchorPane anchorZone =  new AnchorPane();
 	private static VBox vboxSectionLeft = new VBox(10);	
 	
 	private static TableView<Vin> vinTable = new TableView<Vin>();	
@@ -70,7 +71,6 @@ public class MainStage extends Application {
 	private static TableView<Chemise> chemiseTable = new TableView<Chemise>();
 	private static HBox hboxTopSearch = new HBox(27);
 	private static HBox hboxMid = new HBox(10);
-	private static HBox hboxFooterRight = new HBox(10);
 	private static HBox hboxFooterLeft = new HBox(10);
 	private static VBox vboxRightButton = new VBox(10);
 	private static VBox vboxRightImage = new VBox(10);
@@ -106,9 +106,10 @@ public class MainStage extends Application {
 	//css
 	
     
-	scene = new Scene(anchor,LARGEUR, HAUTEUR);
+	scene = new Scene(anchorPrincipal,LARGEUR, HAUTEUR);
 	scene.getStylesheets().add("couchePrésentation/tabPane.css");
-	anchor.getStyleClass().add("anchor");
+	anchorPrincipal.getStyleClass().add("anchor");
+	anchorZone.getStyleClass().add("Zone");
     
     
      // MainStage Designer
@@ -119,12 +120,17 @@ public class MainStage extends Application {
     MainStage.show();
     
     //anchorContent @start
-    anchor.getChildren().addAll(vboxSectionLeft,hboxFooterRight,vboxRightButton,hboxTopSearch,vinTable,alcoolTable,
-    		chemiseTable, hboxMid,vboxRightImage,gridChange);
+    anchorPrincipal.getChildren().addAll(vboxSectionLeft,anchorZone);
+   
+    
     vinTable.setVisible(false);
     alcoolTable.setVisible(false);
     chemiseTable.setVisible(false);
-
+    anchorPrincipal.setTopAnchor(anchorZone, 0.0);
+    anchorPrincipal.setLeftAnchor(anchorZone, 225.0);
+    anchorPrincipal.setBottomAnchor(anchorZone, 0.0);
+    anchorPrincipal.setRightAnchor(anchorZone, 0.0);
+    
     // startContent
     createStartContent(MainStage);
 	}
@@ -132,24 +138,24 @@ public class MainStage extends Application {
 	//create strat content
 	public void createStartContent(Stage MainStage) {
 		
-	closeWindowButton(MainStage);
+	
 	
 	// Css Conteneur
 	vboxSectionLeft.getStyleClass().add("vboxSectionLeft");
 			
 	// Position AnchorPane
-	anchor.setTopAnchor(vboxSectionLeft,25.0);
-	anchor.setLeftAnchor(vboxSectionLeft, 25.0);
+	anchorPrincipal.setTopAnchor(vboxSectionLeft,5.0);
+	anchorPrincipal.setLeftAnchor(vboxSectionLeft, 25.0);
 	
 	Button btProduit = new Button("Produits");
 	btProduit.setOnAction(e->
         { 
+        	clearAnchorProduct();
         	vboxRightButton.getChildren().clear();
-        	vboxSectionLeft.getChildren().clear();
-        	hboxFooterRight.getChildren().clear();
+        	//vboxSectionLeft.getChildren().clear();
+        	anchorZone.getChildren().clear();
         	createStartContent(MainStage);
         	createCommonContainer(MainStage);
-        	
         	//closeWindowButton(MainStage);
         });
 	Button btCommandes = new Button("Commandes");
@@ -158,8 +164,12 @@ public class MainStage extends Application {
     	clearAnchorProduct();
     	vboxRightButton.getChildren().clear();
     	vboxSectionLeft.getChildren().clear();
-    	hboxFooterRight.getChildren().clear();
     	createStartContent(MainStage);
+    	//anchorZone.getChildren().clear();
+    	
+    	ZoneCommande zone = new ZoneCommande();
+    	zone.CreateZoneCommande(anchorZone);
+    	
     	
     });
 	Button btClients = new Button("Clients");
@@ -168,18 +178,25 @@ public class MainStage extends Application {
     	clearAnchorProduct();
     	vboxRightButton.getChildren().clear();
     	vboxSectionLeft.getChildren().clear();
-    	hboxFooterRight.getChildren().clear();
     	createStartContent(MainStage);
+    	anchorZone.getChildren().clear();
+    	
+    	ZoneClients zone = new ZoneClients();
+    	zone.createZoneClients(anchorZone);
     	
     });
 	
-	vboxSectionLeft.getChildren().addAll(btProduit,btCommandes,btClients);
+	Button btQuit = new Button("Quitter");
+	btQuit.setOnAction(e->
+    { 
+    	MainStage.close(); 
+    });
+	vboxSectionLeft.getChildren().addAll(btProduit,btCommandes,btClients,btQuit);
 	
 	
 	 //création hboxFooter---> Quitter
         
 	}
-	
 	
 	/*
 	 * 
@@ -191,13 +208,13 @@ public class MainStage extends Application {
 		@SuppressWarnings({ "static-access"})
 	public void createCommonContainer(Stage MainStage) {
 			
-			
+		
 			// Css Conteneur
 			vboxRightButton.getStyleClass().add("vboxRightButton");
 			
 			// Position AnchorPane
-			anchor.setTopAnchor(vboxRightButton,150.0);
-			anchor.setRightAnchor(vboxRightButton, 25.0);
+			anchorZone.setTopAnchor(vboxRightButton,150.0);
+			anchorZone.setRightAnchor(vboxRightButton, 25.0);
 			
 	        /*
 	         * 
@@ -207,6 +224,9 @@ public class MainStage extends Application {
 	        Button btVin=new Button("Vin");
 	        btVin.setOnAction(e->
 	        { 
+	        	vboxRightButton.getChildren().clear();
+	        	anchorZone.getChildren().clear();
+	        	createCommonContainer(MainStage);
 	        	createZoneVin(MainStage);
 	        	
 	        });
@@ -214,36 +234,28 @@ public class MainStage extends Application {
 	        Button btAlcool=new Button("Alcool");
 	        btAlcool.setOnAction(e->
 	        {         	
+	        	vboxRightButton.getChildren().clear();
+	        	anchorZone.getChildren().clear();
+	        	createCommonContainer(MainStage);
 	        	createZoneAlcool(MainStage);
 	        });
 	        
 	        Button btChemise=new Button("Chemise");
 	        btChemise.setOnAction(e->
 	        {         	
+	        	vboxRightButton.getChildren().clear();
+	        	anchorZone.getChildren().clear();
+	        	createCommonContainer(MainStage);
 	        	createZoneChemise(MainStage);
 	        });
 	        vboxRightButton.getChildren().addAll(btVin,btAlcool,btChemise);
 	        vboxRightButton.getStyleClass().add("vboxRight");
-	        
+	        anchorZone.getChildren().addAll(vboxRightButton);
 	       
 	        
 	        
 		}
 		
-	//Close window button
-	public void closeWindowButton(Stage MainStage) {
-		hboxFooterRight.getStyleClass().add("hboxFooterRight");
-		
-		// Position AnchorPane
-		anchor.setBottomAnchor(hboxFooterRight, 20.0);
-		anchor.setRightAnchor(hboxFooterRight, 25.0);
-		
-		Button btQuitter=new Button("Quitter");
-        btQuitter.setOnAction(e -> { MainStage.close(); });        
-        hboxFooterRight.getChildren().add(btQuitter);
-       
-	}
-	
 	//createVinzone
 	private void createZoneVin(Stage mainStage) {
 		clearAnchorProduct();
@@ -294,8 +306,8 @@ public class MainStage extends Application {
 	
 	//createHboxSearch (Multiple Pane usable)
 	public void createHboxSearch() {
-		anchor.setTopAnchor(hboxTopSearch, 25.0);
-		anchor.setRightAnchor(hboxTopSearch, 25.0);
+		anchorZone.setTopAnchor(hboxTopSearch, 25.0);
+		anchorZone.setRightAnchor(hboxTopSearch, 25.0);
 		
 		hboxTopSearch.getStyleClass().add("hboxTopSearch");
 		
@@ -305,14 +317,15 @@ public class MainStage extends Application {
         Button btChercher = new Button("Chercher");
         hboxTopSearch.getChildren().addAll(tfCol1,tfCol2,tfCol3,btChercher);
         btChercher.getStyleClass().add("btChercher");
+        anchorZone.getChildren().addAll(hboxTopSearch);
 	}
 
 	//createTableVin 
 	public void createTableVin() {
 		
 	// Position AnchorPane
-	anchor.setTopAnchor(vinTable, 90.0);
-	anchor.setLeftAnchor(vinTable, 275.0);
+	anchorZone.setTopAnchor(vinTable, 90.0);
+	anchorZone.setLeftAnchor(vinTable, 50.0);
 	
 	vinTable.getStyleClass().add("Table");
 
@@ -327,13 +340,14 @@ public class MainStage extends Application {
     TableColumn<Vin, Float> prixCol = new TableColumn<Vin, Float>("Prix Unitaire");
     TableColumn<Vin, Float> StickCol = new TableColumn<Vin, Float>("Stock");
     vinTable.getColumns().addAll(idCol,descriptionCol,typeVinCol, origineCol, milleCol,prixCol,StickCol);
+    anchorZone.getChildren().addAll(vinTable);
 	}
 	
 	//create alcoolTable
 	private void createTableAlcool() {
 		
-	anchor.setTopAnchor(alcoolTable, 90.0);
-	anchor.setLeftAnchor(alcoolTable, 275.0);
+	anchorZone.setTopAnchor(alcoolTable, 90.0);
+	anchorZone.setLeftAnchor(alcoolTable, 50.0);
 		
 	alcoolTable.getStyleClass().add("Table");
 		
@@ -349,13 +363,14 @@ public class MainStage extends Application {
 	alcoolTable.getColumns().addAll(idCol,descriptionCol,familleCol, origineCol,
 	    		prixCol,StockCol);
 	alcoolTable.setVisible(false);
+	anchorZone.getChildren().addAll(alcoolTable);
 	
 	}
 	
 	//create chemiseTable
 	private void createTableChemise(){
-	anchor.setTopAnchor(chemiseTable, 90.0);
-	anchor.setLeftAnchor(chemiseTable, 275.0);
+	anchorZone.setTopAnchor(chemiseTable, 90.0);
+	anchorZone.setLeftAnchor(chemiseTable, 50.0);
 		
 	chemiseTable.getStyleClass().add("Table");
 		
@@ -370,12 +385,13 @@ public class MainStage extends Application {
 	chemiseTable.getColumns().addAll(idCol,descriptionCol,tailleCol,
 	    		prixCol,StockCol);
 	chemiseTable.setVisible(false);
+	anchorZone.getChildren().addAll(chemiseTable);
 	}
 	
 	//createHboxMidManageProduct
 	public void createHboxMidManageProduct(Stage MainStage) {
-			anchor.setBottomAnchor(hboxMid,275.0);
-			anchor.setRightAnchor(hboxMid, 260.0);		
+			anchorZone.setBottomAnchor(hboxMid,275.0);
+			anchorZone.setRightAnchor(hboxMid, 260.0);		
 			  
 			 // création hboxMid ---> STOCK,MODIFIER,AJOUTER
 			 
@@ -406,6 +422,7 @@ public class MainStage extends Application {
 	        }
 	        
 	        hboxMid.getChildren().addAll(btStock,btModifier,btAjouter);
+	        anchorZone.getChildren().addAll(hboxMid);
 		}
 	
 	//create GridPane Change VIN
@@ -417,10 +434,10 @@ public class MainStage extends Application {
 	        
 	        gridChange.getStyleClass().add("gridChange");
 	        
-	        anchor.setBottomAnchor(gridChange, 20.0);
-			anchor.setLeftAnchor(gridChange, 275.0);
-			anchor.setBottomAnchor(vboxRightImage,90.0);
-			anchor.setRightAnchor(vboxRightImage, 25.0);
+	        anchorZone.setBottomAnchor(gridChange, 20.0);
+			anchorZone.setLeftAnchor(gridChange, 50.0);
+			anchorZone.setBottomAnchor(vboxRightImage,20.0);
+			anchorZone.setRightAnchor(vboxRightImage, 25.0);
 			
 	        TextField tfNomSearch = new TextField("Nom");
 	        gridChange.add(tfNomSearch,0,0,2,1);
@@ -488,7 +505,7 @@ public class MainStage extends Application {
 	        vboxRightImage.getStyleClass().add("vboxRightImage");
 			vboxRightImage.setVisible(false);
 			
-			
+			 anchorZone.getChildren().addAll(vboxRightImage,gridChange);
 		}
 
 	//create GridPane Change ALCOOl
@@ -500,10 +517,10 @@ public class MainStage extends Application {
         
         gridChange.getStyleClass().add("gridChange");
         
-        anchor.setBottomAnchor(gridChange, GridPosition);
-		anchor.setLeftAnchor(gridChange, 275.0);
-		anchor.setBottomAnchor(vboxRightImage,90.0);
-		anchor.setRightAnchor(vboxRightImage, 25.0);
+        anchorZone.setBottomAnchor(gridChange, GridPosition);
+		anchorZone.setLeftAnchor(gridChange, 50.0);
+		anchorZone.setBottomAnchor(vboxRightImage,20.0);
+		anchorZone.setRightAnchor(vboxRightImage, 25.0);
 		
         TextField tfNomSearch = new TextField("Nom");
         gridChange.add(tfNomSearch,0,0,2,1);
@@ -567,6 +584,7 @@ public class MainStage extends Application {
         vboxRightImage.getStyleClass().add("vboxRightImage");
 		vboxRightImage.setVisible(false);
 		
+		 anchorZone.getChildren().addAll(vboxRightImage,gridChange);
 	}
 
 	//create GridPane Change VIN
@@ -578,10 +596,10 @@ public class MainStage extends Application {
 	        
 	        gridChange.getStyleClass().add("gridChange");
 	        
-	        anchor.setBottomAnchor(gridChange, 20.0);
-			anchor.setLeftAnchor(gridChange, 275.0);
-			anchor.setBottomAnchor(vboxRightImage,90.0);
-			anchor.setRightAnchor(vboxRightImage, 25.0);
+	        anchorZone.setBottomAnchor(gridChange, 20.0);
+			anchorZone.setLeftAnchor(gridChange, 50.0);
+			anchorZone.setBottomAnchor(vboxRightImage,20.0);
+			anchorZone.setRightAnchor(vboxRightImage, 25.0);
 			
 	        TextField tfNomSearch = new TextField("Nom");
 	        gridChange.add(tfNomSearch,0,0,2,1);
@@ -637,7 +655,7 @@ public class MainStage extends Application {
 	        vboxRightImage.getStyleClass().add("vboxRightImage");
 			vboxRightImage.setVisible(false);
 			
-			
+			 anchorZone.getChildren().addAll(vboxRightImage,gridChange);
 		}
 
 	/*

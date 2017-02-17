@@ -22,7 +22,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
+@SuppressWarnings("unused")
 public class GestionStockChemise {
 	private static final int LARGEUR = 544;
 	private static final int HAUTEUR = 394;
@@ -31,6 +31,7 @@ public class GestionStockChemise {
 	private Stage stage = new Stage();
 	private Scene thisScene;
 	private String StockVal = "25";
+	
 	
 	private String quantitéCaisse = "6";
 	
