@@ -1,3 +1,8 @@
 /AccesBD.class
 /ExceptionAccesBd.class
 /OperationBd.class
+/ListerVinBd.class
+/ListerProvenanceVinBd.class
+/ListerTypeVinBd.class
+/ListerMaturationVinBd.class
+/ListerSaveurVinBd.class

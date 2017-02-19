@@ -1,10 +1,9 @@
 package coucheAccesBd;
-
 import java.sql.*;
-//import java.util.*;
+import java.util.*;
+import classesMétiers.*;
+import coucheMétier.ExceptionMetier;
 
-//import classesMétiers.*;
-//import coucheMétier.ExceptionMetier;
 
 public class AccesBD 
 {
@@ -50,8 +49,8 @@ public class AccesBD
 	*/
 	
 	
-	/**
-	 private int ExecuterRequete(OperationBd op) throws ExceptionAccesBd
+	
+	private int ExecuterRequete(OperationBd op) throws ExceptionAccesBd
 	{
 	int nbTentatives = 0;
 		while (true)
@@ -68,7 +67,54 @@ public class AccesBD
 				throw new ExceptionAccesBd(op.getNom(), e.getMessage());
 			}
 		}
-	}**/
+	}
+	 /**
+	  * 
+	  * Region Vin  ------->
+	  * 
+	  */
+	
+	public List<Vin> listerVin() throws ExceptionAccesBd{
+		ListerVinBd opération = new ListerVinBd();
+		ExecuterRequete(opération);
+		return opération.getListe();
+	}
+
+	public List<String> listerProvenanceVin() throws ExceptionAccesBd{
+		ListerProvenanceVinBd opération = new ListerProvenanceVinBd();
+		ExecuterRequete(opération);
+		return opération.getListe();
+	}
+	
+	  public List<String> ListerTypeVin() throws ExceptionAccesBd{
+		ListerTypeVinBd opération = new ListerTypeVinBd();
+		ExecuterRequete(opération);
+		return opération.getListe();
+	}
+	 
 	
 	
+	  public List<String> ListerSaveurVin() throws ExceptionAccesBd{
+		ListerSaveurVinBd opération = new ListerSaveurVinBd();
+		ExecuterRequete(opération);
+		return opération.getListe();
+	}
+	
+	
+	
+	  public List<String> ListerMaturationVin() throws ExceptionAccesBd{
+		ListerMaturationVinBd opération = new ListerMaturationVinBd();
+		ExecuterRequete(opération);
+		return opération.getListe();
+	}
+	
+	 
+	
+	
+	/**
+	 * 
+	 * ------> region vin End
+	 * 
+	 * 
+	 */
 }

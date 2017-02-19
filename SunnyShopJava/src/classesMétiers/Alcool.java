@@ -1,5 +1,6 @@
 package classesMétiers;
 
+import coucheMétier.ExceptionMetier;
 public class Alcool {
 	
 	 private Integer idAlcool;

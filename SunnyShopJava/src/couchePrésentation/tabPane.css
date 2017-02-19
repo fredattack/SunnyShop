@@ -59,6 +59,7 @@
      -fx-text-fill : #625349;
      -fx-text-alignment: center;	
      -fx-font-weight: bold;
+     -fx-prompt-text-fill: derive(-fx-control-inner-background,-30%);
 }
 
 .Table{
