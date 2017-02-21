@@ -123,8 +123,10 @@
    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif; 
      -fx-background-insets: 0 0 0 0, 0, 1, 2;
 }
-.btValider{
-	
+.AnnulerValider{
+	-fx-min-width: 85px;
+    -fx-max-width: 85px;
+    -fx-font-size: 25px;  
 }
 .rbAfficher{
 	-fx-text-fill : #625349;

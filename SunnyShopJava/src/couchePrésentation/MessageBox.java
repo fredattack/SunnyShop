@@ -64,8 +64,8 @@ public class MessageBox {
 		Fenetre.setOnCloseRequest(e -> { e.consume(); });
 		// centrer la fenêtre p/r à la fenêtre parent, la mettre en avant plan et l'afficher
 		Fenetre.setResizable(false);
-		Fenetre.setX(fenParent.getX() + (fenParent.getWidth() - Largeur) / 2);
-		Fenetre.setY(fenParent.getY() + (fenParent.getHeight() - Hauteur) / 2);
+		//Fenetre.setX(fenParent.getX() + (fenParent.getWidth() - Largeur) / 2);
+		//Fenetre.setY(fenParent.getY() + (fenParent.getHeight() - Hauteur) / 2);
 		Fenetre.initOwner(fenParent);
 		Fenetre.initModality(Modality.APPLICATION_MODAL);
 		Fenetre.showAndWait();

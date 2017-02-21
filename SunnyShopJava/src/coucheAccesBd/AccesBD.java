@@ -107,8 +107,16 @@ public class AccesBD
 		ExecuterRequete(opération);
 		return opération.getListe();
 	}
+	  
+	  public int AjouterVin(Vin vin)throws ExceptionAccesBd, ExceptionMetier{
+		  AjouterVinBd operation = new AjouterVinBd(vin);
+		  return ExecuterRequete(operation);
+	  }
 	
-	 
+	 public int GetMaxNumVin() throws ExceptionAccesBd{
+		 GetMaxNumVinBd operation = new GetMaxNumVinBd();
+		 return ExecuterRequete(operation);
+	 }
 	
 	
 	/**

@@ -49,6 +49,13 @@ public class Metier
 	 public List<String> ListerMaturationVin() throws ExceptionAccesBd{
 		return CoucheAccesBd.ListerMaturationVin();
 	}
+	 
+	 public int AjouterVin (Vin vin) throws ExceptionAccesBd, ExceptionMetier{
+		 return CoucheAccesBd.AjouterVin(vin);
+	 }
+	 
 	
-	
+	public int GetMaxNumVin() throws ExceptionAccesBd{
+		return CoucheAccesBd.GetMaxNumVin();
+	}
 }

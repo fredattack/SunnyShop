@@ -6,3 +6,7 @@
 /ListerTypeVinBd.class
 /ListerMaturationVinBd.class
 /ListerSaveurVinBd.class
+/AjouterVin.class
+/AjouterVinBd.class
+/GetMaxNumVin.class
+/GetMaxNumVinBd.class

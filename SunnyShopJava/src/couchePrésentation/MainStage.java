@@ -68,6 +68,26 @@ public class MainStage extends Application {
 	private int LARGEUR = 1300;
 	private int HAUTEUR = 840;
 	
+	// Main
+		public static void main(String[] args)
+		{
+			//Connect To DB
+			
+			try
+			{
+				laCoucheMétier = new Metier();
+			
+			}
+			catch (ExceptionAccesBd e)
+			{
+			System.out.println("\nAccès à la BD impossible (" + e.getMessage() + ")");
+			System.exit(0);
+			}
+			
+			// Launch App
+			MainStage.launch();
+		
+		}
 	//Start	
 	@Override
 	public void start(Stage MainStage)
@@ -146,25 +166,6 @@ public class MainStage extends Application {
 	}
 
 
-	// Main
-	public static void main(String[] args)
-	{
-		//Connect To DB
-		
-		try
-		{
-			laCoucheMétier = new Metier();
-		
-		}
-		catch (ExceptionAccesBd e)
-		{
-		System.out.println("\nAccès à la BD impossible (" + e.getMessage() + ")");
-		System.exit(0);
-		}
-		
-		// Launch App
-		MainStage.launch();
 	
-	}
 
 }

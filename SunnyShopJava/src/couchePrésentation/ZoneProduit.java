@@ -3,7 +3,7 @@ package couchePrésentation;
 import coucheMétier.*;
 import coucheAccesBd.*;
 import classesMétiers.*;
-
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -29,10 +29,12 @@ public class ZoneProduit {
 	ObservableList<String> laListeType = null;
 	ObservableList<String> laListeSaveur = null;
 	ObservableList<Vin> laListeDeVin = null;
-	Vin leVin = new Vin();
-	//Stage laStageParent = new Stage();
+	Vin leVin;
+	int leNum;
 	Alcool A = new Alcool();
 	Chemise c = new Chemise();
+	
+	Metier laCoucheMétier = new Metier();
 	private static TableView<Vin> vinTable = new TableView<Vin>();
 	private static TableView<Alcool> alcoolTable = new TableView<Alcool>();
 	private static TableView<Chemise> chemiseTable = new TableView<Chemise>();
@@ -43,18 +45,18 @@ public class ZoneProduit {
 	private static GridPane gridChange = new GridPane();
 
 	public ZoneProduit() throws ExceptionAccesBd {
-		leVin.setIdVin(2);
-		laListeProvenance = FXCollections.observableArrayList(MainStage.laCoucheMétier.ListerProvenanceVin());
-		laListeType = FXCollections.observableArrayList(MainStage.laCoucheMétier.ListerTypeVin());
-		laListeMaturation = FXCollections.observableArrayList(MainStage.laCoucheMétier.ListerMaturationVin());
-		laListeSaveur = FXCollections.observableArrayList(MainStage.laCoucheMétier.ListerSaveurVin());
-		laListeDeVin = FXCollections.observableArrayList(MainStage.laCoucheMétier.ListerVin());
+		//leVin.setIdVin(2);
+		laListeProvenance = FXCollections.observableArrayList(laCoucheMétier.ListerProvenanceVin());
+		laListeType = FXCollections.observableArrayList(laCoucheMétier.ListerTypeVin());
+		laListeMaturation = FXCollections.observableArrayList(laCoucheMétier.ListerMaturationVin());
+		laListeSaveur = FXCollections.observableArrayList(laCoucheMétier.ListerSaveurVin());
+		leNum = laCoucheMétier.GetMaxNumVin()+1;
 	
 	}
 
 	public void createZoneProduit(AnchorPane anchorZone, Stage MainStage) {
 		createCommonContainer(anchorZone, MainStage);
-		//laStageParent = MainStage;
+		
 	}
 
 	// createCommonPane Container (Multiple Pane usable)
@@ -161,35 +163,37 @@ public class ZoneProduit {
 		// Position AnchorPane
 		anchorZone.setTopAnchor(vinTable, 90.0);
 		anchorZone.setLeftAnchor(vinTable, 50.0);
-
+		//laListeDeVin = FXCollections.observableArrayList(laCoucheMétier.ListerVin());
 		vinTable.getStyleClass().add("Table");
 
-		// création tableau vin
-		TableColumn<Vin, String> idCol = new TableColumn<Vin, String>("ID Produit");
-		idCol.setCellValueFactory(new PropertyValueFactory<>("idVin"));
-		TableColumn<Vin, String> descriptionCol = new TableColumn<Vin, String>("Description");
-		descriptionCol.prefWidthProperty().bind(vinTable.widthProperty().multiply(0.387));
-		descriptionCol.setCellValueFactory(new PropertyValueFactory<>("nomVin"));
-		TableColumn<Vin, String> typeVinCol = new TableColumn<Vin, String>("Type de vin");
-		typeVinCol.setCellValueFactory(new PropertyValueFactory<>("idTypeVin"));
-		TableColumn<Vin, String> origineCol = new TableColumn<Vin, String>("Origine");
-		origineCol.setCellValueFactory(new PropertyValueFactory<>("idProvenanceVin"));
-		TableColumn<Vin, String> milleCol = new TableColumn<Vin, String>("Millésime");
-		milleCol.setCellValueFactory(new PropertyValueFactory<>("millesime"));
-		TableColumn<Vin, Float> prixCol = new TableColumn<Vin, Float>("Prix Unitaire");
-		prixCol.setCellValueFactory(new PropertyValueFactory<>("PrixUnitaire"));
-		TableColumn<Vin, Float> StickCol = new TableColumn<Vin, Float>("Stock");
-		StickCol.setCellValueFactory(new PropertyValueFactory<>("stockVin"));
-		vinTable.getColumns().addAll(idCol, descriptionCol, typeVinCol, origineCol, milleCol, prixCol, StickCol);
-		anchorZone.getChildren().addAll(vinTable);
 		try
 		{
-		vinTable.itemsProperty().setValue(
-		FXCollections.observableArrayList(laListeDeVin));
+		vinTable.itemsProperty().setValue(FXCollections.observableArrayList(FXCollections.observableArrayList(laCoucheMétier.ListerVin())));
 		}catch(Exception ex)
 		{			
 		new MessageBox(MainStage, AlertType.ERROR,"Accès à la BD impossible (" + ex.getMessage() + ")");
 		}
+		
+		// création tableau vin
+		TableColumn<Vin, String> idCol = new TableColumn<Vin, String>("ID Produit");
+		idCol.setCellValueFactory(new PropertyValueFactory<>("idVin"));
+		TableColumn<Vin, String> descriptionCol = new TableColumn<Vin, String>("Nom");
+		descriptionCol.prefWidthProperty().bind(vinTable.widthProperty().multiply(0.15));
+		descriptionCol.setCellValueFactory(new PropertyValueFactory<Vin, String>("nomVin"));
+		TableColumn<Vin, String> typeVinCol = new TableColumn<Vin, String>("Type de vin");
+		typeVinCol.setCellValueFactory(new PropertyValueFactory<Vin, String>("typeVin"));
+		TableColumn<Vin, String> origineCol = new TableColumn<Vin, String>("Origine");
+		origineCol.setCellValueFactory(new PropertyValueFactory<Vin, String>("provenanceVin"));
+		TableColumn<Vin, String> milleCol = new TableColumn<Vin, String>("Millésime");
+		milleCol.setCellValueFactory(new PropertyValueFactory<Vin, String>("millesime"));
+		TableColumn<Vin, Float> prixCol = new TableColumn<Vin, Float>("Prix Unitaire");
+		prixCol.setCellValueFactory(new PropertyValueFactory<Vin, Float>("PrixUnitaire"));
+		TableColumn<Vin, Float> StickCol = new TableColumn<Vin, Float>("Stock");
+		StickCol.setCellValueFactory(new PropertyValueFactory<>("stockVin"));
+		vinTable.getColumns().addAll(idCol, descriptionCol, typeVinCol, origineCol, milleCol, prixCol, StickCol);
+		anchorZone.getChildren().add(vinTable);
+		
+		
 	}
 
 	// create alcoolTable
@@ -241,6 +245,7 @@ public class ZoneProduit {
 		// création hboxMid ---> STOCK,MODIFIER,AJOUTER
 
 		Button btModifier = new Button("Modifier article");
+		btModifier.setVisible(false);
 		btModifier.setOnAction(e -> {
 			gridChange.setVisible(true);
 			vboxRightImage.setVisible(true);
@@ -250,9 +255,11 @@ public class ZoneProduit {
 		btAjouter.setOnAction(e -> {
 			gridChange.setVisible(true);
 			vboxRightImage.setVisible(true);
+			
 		}); // afficher gridChange
 
 		Button btStock = new Button("Gestion stock");
+		btStock.setVisible(false);
 		if (vinTable.isVisible()) {
 			btStock.setOnAction(e -> {
 				new GestionStockVin(MainStage);
@@ -273,11 +280,12 @@ public class ZoneProduit {
 
 	// create GridPane Change VIN
 	public void createGridePaneChangeVin(AnchorPane anchorZone, GridPane gridChange, VBox vboxRightImage,Stage MainStage) {
-
+		leVin= new Vin();
 		gridChange.setHgap(10);
 		gridChange.setVgap(5);
 		gridChange.setAlignment(Pos.CENTER);
 		gridChange.setVisible(false);
+		//HBox hbBouton = new HBox(10); 
 		
 		gridChange.getStyleClass().add("gridChange");
 
@@ -287,20 +295,20 @@ public class ZoneProduit {
 		anchorZone.setRightAnchor(vboxRightImage, 25.0);
 
 		TextField tfNomSearch = new TextField("Nom");
-		gridChange.add(tfNomSearch, 0, 0, 2, 1);
+		gridChange.add(tfNomSearch, 0, 0,1 , 1);
 		tfNomSearch.getStyleClass().add("tfNomSearch");
 
 		ComboBox<String> cbMat = new ComboBox<>();
 		cbMat.setValue("Maturité");
-		gridChange.add(cbMat, 0, 1, 1, 1);
+		gridChange.add(cbMat, 4, 1, 1, 1);
 		cbMat.setItems(laListeMaturation);
 		cbMat.getStyleClass().add("cbMat");
+		
+		TextField tfPrix = new TextField ("Prix Unitaire");
+		gridChange.add(tfPrix, 1,0, 1, 1);
 
-		Label laQuantiteCaisse = new Label("Quantité par Caisse");
-		gridChange.add(laQuantiteCaisse, 0, 2, 1, 1);
-
-		TextField tfQuantiteCaisse = new TextField();
-		gridChange.add(tfQuantiteCaisse, 1, 2, 1, 1);
+		TextField tfQuantiteCaisse = new TextField("Q/caisse");
+		gridChange.add(tfQuantiteCaisse, 1, 1, 1, 1);
 		tfQuantiteCaisse.getStyleClass().add("tfQuantiteCaisse");
 
 		ComboBox<String> cbSaveur = new ComboBox<>();
@@ -311,11 +319,9 @@ public class ZoneProduit {
 		cbSaveur.setItems(laListeSaveur);
 		cbSaveur.getStyleClass().add("cbSaveur");
 
-		Label laStock = new Label("Quantité en stock");
-		gridChange.add(laStock, 0, 3, 1, 1);
 
-		TextField tfStockVin = new TextField();
-		gridChange.add(tfStockVin, 1, 3, 1, 1);
+		TextField tfStockVin = new TextField("Stock");
+		gridChange.add(tfStockVin, 1, 2, 1, 1);
 		tfStockVin.getStyleClass().add("tfStockVin");
 
 		ComboBox<String> cbType = new ComboBox<>();
@@ -334,7 +340,7 @@ public class ZoneProduit {
 		cbProvenance.getStyleClass().add("cbProvenance");
 
 		TextField tfMillesime = new TextField("Millésime");
-		gridChange.add(tfMillesime, 4, 1, 1, 1);
+		gridChange.add(tfMillesime, 0, 1, 1, 1);
 
 		TextField tfImageName = new TextField("Image");
 		gridChange.add(tfImageName, 3, 2, 1, 1);
@@ -343,19 +349,70 @@ public class ZoneProduit {
 		gridChange.add(btImage, 4, 2, 1, 1);
 		btImage.getStyleClass().add("btImage");
 
-		Button btValider = new Button("Valider");
-		gridChange.add(btValider, 4, 3, 1, 1);
+		
+		Button btValider = new Button("V");
 		btValider.setOnAction(e -> {
+		gridChange.setVisible(false);
+		vboxRightImage.setVisible(false);
+		
+		ToggleButton rbAfficher = new RadioButton("Afficher le produit");
+		gridChange.add(rbAfficher, 0, 2, 1, 1);
+		rbAfficher.getStyleClass().add("rbAfficher");
+		
+		
+		//Ajouter Vin
+		
+			Integer afficher;
+			Integer laMaturation = cbMat.getSelectionModel().getSelectedIndex();
+			if(rbAfficher.isSelected()) afficher=1 ;
+			else afficher= 0;
+			leVin.setIdVin(String.valueOf(00)+String.valueOf(leNum)+"0"+cbType.getSelectionModel().getSelectedIndex()+
+					"0"+cbProvenance.getSelectionModel().getSelectedIndex());
+			leVin.setNomVin(tfNomSearch.getText());
+			leVin.setPrixUnitaire(Float.valueOf(tfPrix.getText()));
+			leVin.setIdTypeVin(Integer.valueOf(cbType.getSelectionModel().getSelectedIndex()));
+			leVin.setIdSaveur(Integer.valueOf(cbSaveur.getSelectionModel().getSelectedIndex()));
+			leVin.setIdProvenance(Integer.valueOf(cbProvenance.getSelectionModel().getSelectedIndex()));
+			leVin.setIdMaturation(laMaturation);
+			leVin.setMillesime(tfMillesime.getText());
+			leVin.setQuantitéCaisse(Integer.valueOf(tfQuantiteCaisse.getText()));
+			leVin.setStockVin(Integer.valueOf(tfStockVin.getText()));
+			leVin.setImageVin("ImageTest 0009999");
+			leVin.setIdTypeProduit(Integer.valueOf("0"));
+			leVin.setAfficherVin(afficher);
+			
+			try {
+				if(laCoucheMétier.AjouterVin(leVin)==0){
+					new MessageBox(MainStage, AlertType.WARNING, "L'ajout n'a pas eu lieu!");}
+				
+				else{ 
+					new MessageBox(MainStage, AlertType.INFORMATION, "L'ajout s'est bien déroulé!");
+					
+					anchorZone.getChildren().clear();
+					clearAnchorProduct();
+					createCommonContainer(anchorZone, MainStage);
+					createZoneVin(anchorZone, MainStage);
+				}
+			} 
+			catch (ExceptionMetier e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (ExceptionAccesBd e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+		});
+		gridChange.add(btValider, 4, 3, 1, 1);
+		Button btAnnuler = new Button("X");
+		btAnnuler.setOnAction(e -> {
 		
 		gridChange.setVisible(false);
 		vboxRightImage.setVisible(false);
 		});
-		btValider.getStyleClass().add("btValider");
-
-		// afficher gridChange
-		ToggleButton rbAfficher = new RadioButton("Afficher le produit");
-		gridChange.add(rbAfficher, 3, 3, 1, 1);
-		rbAfficher.getStyleClass().add("rbAfficher");
+		
+		gridChange.add(btAnnuler, 3, 3, 1, 1);
+		
 
 		// image
 		vboxRightImage.getStyleClass().add("vboxRightImage");
@@ -375,6 +432,16 @@ public class ZoneProduit {
 			tfMillesime.setOnMouseClicked(e -> {
 				tfMillesime.setText("");
 			});
+			tfPrix.setOnMouseClicked(e -> {
+				tfPrix.setText("");
+			});
+			tfQuantiteCaisse.setOnMouseClicked(e -> {
+				tfQuantiteCaisse.setText("");
+			});
+			tfStockVin.setOnMouseClicked(e -> {
+				tfStockVin.setText("");
+			});
+		
 		}
 	}
 
