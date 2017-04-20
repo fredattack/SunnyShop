@@ -2,11 +2,15 @@ package classesMétiers;
 
 public class Order {
 	
+	
+
 	public Integer idOrder;
 	public String dateOrder;
 	public String timeOrder;
 	public Float totalPrice;
-	public Integer deliveredOrder;
+	public String deliveredOrder;
+	public Integer idUserOrder;
+
 	/**
 	 * 
 	 */
@@ -19,10 +23,29 @@ public class Order {
 	public Order(Order o) {
 		this.idOrder = o.idOrder;
 		this.dateOrder = o.dateOrder;
-		this.timeOrder = o.timeOrder;
 		this.totalPrice = o.totalPrice;
 		this.deliveredOrder = o.deliveredOrder;
+		this.idUserOrder = o.idUserOrder;
+		this.timeOrder = o.timeOrder;
 	}
+	/**
+	 * @param idOrder
+	 * @param dateOrder
+	 * @param totalPrice
+	 * @param deliveredOrder
+	 * @param timeOrder
+	 * 
+	 */
+	public Order(Integer idOrder, String dateOrder, Float totalPrice, String deliveredOrder,Integer idUserOrder, String timeOrder) {
+		super();
+		this.idOrder = idOrder;
+		this.dateOrder = dateOrder;
+		this.timeOrder = timeOrder;
+		this.totalPrice = totalPrice;
+		this.deliveredOrder = deliveredOrder;
+		this.idUserOrder =idUserOrder;
+	}
+	
 	/**
 	 * @param idOrder
 	 * @param dateOrder
@@ -30,7 +53,7 @@ public class Order {
 	 * @param totalPrice
 	 * @param deliveredOrder
 	 */
-	public Order(Integer idOrder, String dateOrder, String timeOrder, Float totalPrice, Integer deliveredOrder) {
+	public Order(Integer idOrder, String dateOrder, String timeOrder, Float totalPrice, String deliveredOrder) {
 		super();
 		this.idOrder = idOrder;
 		this.dateOrder = dateOrder;
@@ -63,12 +86,19 @@ public class Order {
 	public void setTotalPrice(Float totalPrice) {
 		this.totalPrice = totalPrice;
 	}
-	public Integer getDeliveredOrder() {
+	public String getDeliveredOrder() {
 		return deliveredOrder;
 	}
-	public void setDeliveredOrder(Integer deliveredOrder) {
+	public void setDeliveredOrder(String deliveredOrder) {
 		this.deliveredOrder = deliveredOrder;
 	}
+	public Integer getIdUserOrder() {
+		return idUserOrder;
+	}
+	public void setIdUserOrder(Integer idUserOrder) {
+		this.idUserOrder = idUserOrder;
+	}
+	
 	
 	
 

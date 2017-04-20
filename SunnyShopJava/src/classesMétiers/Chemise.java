@@ -2,171 +2,204 @@ package classesMétiers;
 
 public class Chemise {
 	
-	 private Integer idAlcool;
-	 private Integer idProduit;
-	 private String nomAlcool;
-	 private Integer prixUnitaire;
-	 private Integer idFamille;
-	 private Integer idProvenanceAlcool;
-	 private Integer degréAlcool;
-	 private String goutAlcool;
-	 private String datePeremption;
-	 private Integer stockAlcool;
-	 private Integer quantitéCaisse;
-	 private String imageAlcool;
-	 private Integer idTypeProduit;
-	 private Integer afficherProduit;
-	 
+	private String idProduit;
+	private String nomChemise;
+	private Float prixUnitaire;
+	private Integer idMatiere;
+	private String matiere;
+	private String couleurChemise;	
+	private Integer stockChemise;
+	private String imageChemise;
+	private Integer idTypeProduit;
+	private Integer afficherProduit;
+	private Integer idTaille;
+	private String taille;
+	private Integer model;
+	
+	
+	public Chemise(){
+		 
+	 }
+	
+	/*Constructeur Ajouter
+	
 	/**
-	 * 
-	 */
-	public Chemise() {
-		
-	}
-	/**
-	 * @param Chemise c
-	 */
-	public Chemise(Chemise c) {
-		super();
-		this.idAlcool = c.idAlcool;
-		this.idProduit = c.idProduit;
-		this.nomAlcool = c.nomAlcool;
-		this.prixUnitaire = c.prixUnitaire;
-		this.idFamille = c.idFamille;
-		this.idProvenanceAlcool = c.idProvenanceAlcool;
-		this.degréAlcool = c.degréAlcool;
-		this.goutAlcool = c.goutAlcool;
-		this.datePeremption = c.datePeremption;
-		this.stockAlcool = c.stockAlcool;
-		this.quantitéCaisse = c.quantitéCaisse;
-		this.imageAlcool = c.imageAlcool;
-		this.idTypeProduit = c.idTypeProduit;
-		this.afficherProduit = c.afficherProduit;
-	}
-	/**
-	 * @param idAlcool
 	 * @param idProduit
-	 * @param nomAlcool
+	 * @param nomChemise
 	 * @param prixUnitaire
-	 * @param idFamille
-	 * @param idProvenanceAlcool
-	 * @param degréAlcool
-	 * @param goutAlcool
-	 * @param datePeremption
-	 * @param stockAlcool
-	 * @param quantitéCaisse
-	 * @param imageAlcool
+	 * @param idMatiere
+	 * @param couleurChemise
+	 * @param stockChemise
+	 * @param imageChemise
 	 * @param idTypeProduit
 	 * @param afficherProduit
+	 * @param model
+	 * @param taill
 	 */
-	public Chemise(Integer idAlcool, Integer idProduit, String nomAlcool, Integer prixUnitaire, Integer idFamille,
-			Integer idProvenanceAlcool, Integer degréAlcool, String goutAlcool, String datePeremption,
-			Integer stockAlcool, Integer quantitéCaisse, String imageAlcool, Integer idTypeProduit,
-			Integer afficherProduit) {
+	public Chemise(String idProduit, String nomChemise, Float prixUnitaire, 
+					Integer idMatiere, String couleurChemise,
+			Integer stockChemise, String imageChemise, Integer idTypeProduit, 
+			Integer afficherProduit, Integer idTaille,Integer model) {
 		super();
-		this.idAlcool = idAlcool;
 		this.idProduit = idProduit;
-		this.nomAlcool = nomAlcool;
+		this.nomChemise = nomChemise;
 		this.prixUnitaire = prixUnitaire;
-		this.idFamille = idFamille;
-		this.idProvenanceAlcool = idProvenanceAlcool;
-		this.degréAlcool = degréAlcool;
-		this.goutAlcool = goutAlcool;
-		this.datePeremption = datePeremption;
-		this.stockAlcool = stockAlcool;
-		this.quantitéCaisse = quantitéCaisse;
-		this.imageAlcool = imageAlcool;
+		this.idMatiere = idMatiere;
+		this.couleurChemise = couleurChemise;
+		this.stockChemise = stockChemise;
+		this.imageChemise = imageChemise;
 		this.idTypeProduit = idTypeProduit;
 		this.afficherProduit = afficherProduit;
+		this.idTaille = idTaille;
+		this.model= model;
 	}
+
 	
-	public Integer getIdAlcool() {
-		return idAlcool;
+	
+	/*Constructeur Lister
+	/**
+	 * @param idProduit
+	 * @param nomChemise
+	 * @param prix
+	 * @param matiere
+	 * @param couleurChemise
+	 * @param stockChemise
+	 * @param taille
+	 */
+	public Chemise(String idProduit, String nomChemise, Float prixUnitaire, 
+			String matiere, String couleurChemise,
+			Integer stockChemise, String taille) {
+		super();
+		this.idProduit = idProduit;
+		this.nomChemise = nomChemise;
+		this.prixUnitaire = prixUnitaire;
+		this.matiere = matiere;
+		this.couleurChemise = couleurChemise;
+		this.stockChemise = stockChemise;
+		this.taille = taille;
 	}
-	public void setIdAlcool(Integer idAlcool) {
-		this.idAlcool = idAlcool;
+
+	public Chemise(Chemise c) {
+		super();
+		this.idProduit = c.idProduit;
+		this.nomChemise = c.nomChemise;
+		this.prixUnitaire = c.prixUnitaire;
+		this.idMatiere = c.idMatiere;
+		this.couleurChemise = c.couleurChemise;
+		this.stockChemise = c.stockChemise;
+		this.imageChemise = c.imageChemise;
+		this.idTypeProduit = c.idTypeProduit;
+		this.afficherProduit = c.afficherProduit;
+		this.idTaille = c.idTaille;
+		this.model= c.model;
 	}
-	public Integer getIdProduit() {
+
+	public String getIdProduit() {
 		return idProduit;
 	}
-	public void setIdProduit(Integer idProduit) {
+
+	public void setIdProduit(String idProduit) {
 		this.idProduit = idProduit;
 	}
-	public String getNomAlcool() {
-		return nomAlcool;
+
+	public String getNomChemise() {
+		return nomChemise;
 	}
-	public void setNomAlcool(String nomAlcool) {
-		this.nomAlcool = nomAlcool;
+
+	public void setNomChemise(String nomChemise) {
+		this.nomChemise = nomChemise;
 	}
-	public Integer getPrixUnitaire() {
+
+	public Float getPrixUnitaire() {
 		return prixUnitaire;
 	}
-	public void setPrixUnitaire(Integer prixUnitaire) {
+
+	public void setPrixUnitaire(Float prixUnitaire) {
 		this.prixUnitaire = prixUnitaire;
 	}
-	public Integer getIdFamille() {
-		return idFamille;
+
+	public Integer getIdMatiere() {
+		return idMatiere;
 	}
-	public void setIdFamille(Integer idFamille) {
-		this.idFamille = idFamille;
+
+	public void setIdMatiere(Integer idMatiere) {
+		this.idMatiere = idMatiere;
 	}
-	public Integer getIdProvenanceAlcool() {
-		return idProvenanceAlcool;
+
+	public String getMatiere() {
+		return matiere;
 	}
-	public void setIdProvenanceAlcool(Integer idProvenanceAlcool) {
-		this.idProvenanceAlcool = idProvenanceAlcool;
+
+	public void setMatiere(String matiere) {
+		this.matiere = matiere;
 	}
-	public Integer getDegréAlcool() {
-		return degréAlcool;
+
+	public String getCouleurChemise() {
+		return couleurChemise;
 	}
-	public void setDegréAlcool(Integer degréAlcool) {
-		this.degréAlcool = degréAlcool;
+
+	public void setCouleurChemise(String couleurChemise) {
+		this.couleurChemise = couleurChemise;
 	}
-	public String getGoutAlcool() {
-		return goutAlcool;
+
+	public Integer getStockChemise() {
+		return stockChemise;
 	}
-	public void setGoutAlcool(String goutAlcool) {
-		this.goutAlcool = goutAlcool;
+
+	public void setStockChemise(Integer stockChemise) {
+		this.stockChemise = stockChemise;
 	}
-	public String getDatePeremption() {
-		return datePeremption;
+
+	public String getimageChemise() {
+		return imageChemise;
 	}
-	public void setDatePeremption(String datePeremption) {
-		this.datePeremption = datePeremption;
+
+	public void setimageChemise(String imageChemise) {
+		this.imageChemise = imageChemise;
 	}
-	public Integer getStockAlcool() {
-		return stockAlcool;
-	}
-	public void setStockAlcool(Integer stockAlcool) {
-		this.stockAlcool = stockAlcool;
-	}
-	public Integer getQuantitéCaisse() {
-		return quantitéCaisse;
-	}
-	public void setQuantitéCaisse(Integer quantitéCaisse) {
-		this.quantitéCaisse = quantitéCaisse;
-	}
-	public String getImageAlcool() {
-		return imageAlcool;
-	}
-	public void setImageAlcool(String imageAlcool) {
-		this.imageAlcool = imageAlcool;
-	}
+
 	public Integer getIdTypeProduit() {
 		return idTypeProduit;
 	}
+
 	public void setIdTypeProduit(Integer idTypeProduit) {
 		this.idTypeProduit = idTypeProduit;
 	}
+
 	public Integer getAfficherProduit() {
 		return afficherProduit;
 	}
+
 	public void setAfficherProduit(Integer afficherProduit) {
 		this.afficherProduit = afficherProduit;
 	}
-	 
+
+	public Integer getIdTaille() {
+		return idTaille;
+	}
+
+	public void setIdTaille(Integer taille) {
+		this.idTaille = taille;
+	}
+	
+
+	public Integer getModel() {
+		return model;
+	}
+
+	public void setModel(Integer model) {
+		this.model = model;
+	}
+
+	public String getTaille() {
+		return taille;
+	}
+
+	public void setTaille(String taille) {
+		this.taille = taille;
+	}
+
 	
 	
-	 
 
 }

@@ -2,14 +2,16 @@ package classesMétiers;
 
 public class User {
 
-	private int idUser;
-	private String nameUser;
+	private Integer idUser;
+	private String firstName;
 	private String login;
-	private String surnameUser;
+	private String lastName;
 	private String adresUser;
 	private String password;
 	private String birthDate;
 	private String role;
+	private Float totalAchat;
+	
 	
 // constructors
 	
@@ -20,17 +22,38 @@ public class User {
 	
 
 	/**
+	 * @param idUser
+	 * @param nameUser
+	 * @param surnameUser
+	 * @param adresUser
+	 * @param birthDate
+	 * @param totalAchat
+	 */
+	public User(Integer idUser, String nameUser, String surnameUser, String adresUser, String birthDate,Float totalAchat) {
+		super();
+		this.idUser = idUser;
+		this.firstName = nameUser;
+		this.lastName = surnameUser;
+		this.adresUser = adresUser;
+		this.birthDate = birthDate;
+		this.totalAchat = totalAchat;
+	
+	}
+
+
+	/**
 	 * @param User
 	 */
 	public User(User user) {
 		idUser =user.idUser;
-		nameUser = user.nameUser;
+		firstName = user.firstName;
 		login = user.login;
-		surnameUser = user.surnameUser;
+		lastName = user.lastName;
 		adresUser = user.adresUser;
 		password = user.password;
 		birthDate = user.birthDate;
-		role = user.role;		
+		role = user.role;	
+		totalAchat = user.totalAchat;
 	}
 	
 	/**
@@ -42,38 +65,42 @@ public class User {
 	 * @param password
 	 * @param birthDate
 	 * @param role
+	 * @param totalAchat 
 	 */
-	public User(int idUser, String nameUser, String login, String surnameUser, String adresUser, String password,
-			String birthDate, String role) {		
+	public User(Integer idUser, String nameUser, String login, String surnameUser, String adresUser, String password,
+			String birthDate, String role, Float totalAchat) {		
 		this.idUser = idUser;
-		this.nameUser = nameUser;
+		this.firstName = nameUser;
 		this.login = login;
-		this.surnameUser = surnameUser;
+		this.lastName = surnameUser;
 		this.adresUser = adresUser;
 		this.password = password;
 		this.birthDate = birthDate;
 		this.role = role;
+		this.totalAchat = totalAchat;
 	}
 
 //Methods get set
+
 	
-	public int getIdUser() {
+
+
+	public Integer getIdUser() {
 		return idUser;
 	}
 
 
-	public void setIdUser(int idUser) {
+	public void setIdUser(Integer idUser) {
 		this.idUser = idUser;
 	}
 
 
-	public String getNameUser() {
-		return nameUser;
+	public String getFirstName() {
+		return firstName;
 	}
-
-
-	public void setNameUser(String nameUser) {
-		this.nameUser = nameUser;
+	
+	public void setFirstName(String nameUser) {
+		this.firstName = nameUser;
 	}
 
 
@@ -87,13 +114,13 @@ public class User {
 	}
 
 
-	public String getSurnameUser() {
-		return surnameUser;
+	public String getLastName() {
+		return lastName;
 	}
 
 
-	public void setSurnameUser(String surnameUser) {
-		this.surnameUser = surnameUser;
+	public void setLastName(String surnameUser) {
+		this.lastName = surnameUser;
 	}
 
 
@@ -137,7 +164,14 @@ public class User {
 	}
 
 	
-	
+	public Float getTotalAchat() {
+		return totalAchat;
+	}
+
+
+	public void setTotalAchat(Float totalAchat) {
+		this.totalAchat = totalAchat;
+	}
 	
 	
 	

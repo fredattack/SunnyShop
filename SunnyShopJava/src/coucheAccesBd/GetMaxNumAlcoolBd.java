@@ -4,17 +4,16 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 
+public class GetMaxNumAlcoolBd extends OperationBd{
 
-public class GetMaxNumVinBd extends OperationBd{
-	
 	private Integer leNum;
 
 	/**
 	 * @param nom
 	 * @param leMaxNumVin
 	 */
-	public GetMaxNumVinBd() {
-		super("GetMaxNumVin");
+	public GetMaxNumAlcoolBd() {
+		super("GetMaxNumAlcool");
 		
 	}
 	
@@ -22,7 +21,7 @@ public class GetMaxNumVinBd extends OperationBd{
 	{
 	
 	
-	CallableStatement sqlCmd = SqlConn.prepareCall("{ call MaxNumVin() }");
+	CallableStatement sqlCmd = SqlConn.prepareCall("{ call MaxNumAlcool() }");
 	ResultSet sqlRes = sqlCmd.executeQuery();
 	while (sqlRes.next() == true)
 	leNum = sqlRes.getInt(1);
@@ -30,6 +29,4 @@ public class GetMaxNumVinBd extends OperationBd{
 	sqlRes.close();
 	return leNum;
 	}
-	
-	
 }

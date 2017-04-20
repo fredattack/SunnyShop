@@ -3,46 +3,56 @@ package classesMétiers;
 import coucheMétier.ExceptionMetier;
 public class Alcool {
 	
-	 private Integer idAlcool;
-	 private Integer idProduit;
+	 private String idAlcool;
 	 private String nomAlcool;
-	 private Integer prixUnitaire;
+	 private Float prixUnitaire;
 	 private Integer idFamille;
+	 private String familleAlcool;
 	 private Integer idProvenanceAlcool;
-	 private Integer degréAlcool;
+	 private String provenanceAlcool;
+	
+	private Integer degréAlcool;
 	 private String goutAlcool;
 	 private String datePeremption;
 	 private Integer stockAlcool;
 	 private Integer quantitéCaisse;
 	 private String imageAlcool;
 	 private Integer idTypeProduit;
-	 private Integer afficherProduit;
-	/**
+	 private Integer afficherAlcool;
+	 
+	 //Constructeur Affichage Table
+	 /**
+		 * @param idAlcool
+		 * @param nomAlcool
+		 * @param prixUnitaire
+		 * @param familleAlcool
+		 * @param provenanceAlcool
+		 * @param stockAlcool
+		 */
+		public Alcool(String idAlcool, String nomAlcool, Float prixUnitaire,
+				String familleAlcool, String provenanceAlcool,
+				Integer stockAlcool) {
+			super();
+			this.idAlcool = idAlcool;
+			this.nomAlcool = nomAlcool;
+			this.prixUnitaire = prixUnitaire;
+			this.familleAlcool = familleAlcool;
+			this.provenanceAlcool = provenanceAlcool;
+			this.stockAlcool = stockAlcool;
+		}
+	 /**
 	 * 
 	 */
 	public Alcool() {
 		
 	}
 	/**
-	 * @param idAlcool
-	 * @param idProduit
-	 * @param nomAlcool
-	 * @param prixUnitaire
-	 * @param idFamille
-	 * @param idProvenanceAlcool
-	 * @param degréAlcool
-	 * @param goutAlcool
-	 * @param datePeremption
-	 * @param stockAlcool
-	 * @param quantitéCaisse
-	 * @param imageAlcool
-	 * @param idTypeProduit
-	 * @param afficherProduit
+	 * @param other Alcool
+	 *
 	 */
 	public Alcool(Alcool a) {
 		super();
 		this.idAlcool = a.idAlcool;
-		this.idProduit = a.idProduit;
 		this.nomAlcool = a.nomAlcool;
 		this.prixUnitaire = a.prixUnitaire;
 		this.idFamille = a.idFamille;
@@ -54,11 +64,54 @@ public class Alcool {
 		this.quantitéCaisse = a.quantitéCaisse;
 		this.imageAlcool = a.imageAlcool;
 		this.idTypeProduit = a.idTypeProduit;
-		this.afficherProduit = a.afficherProduit;
+		this.afficherAlcool = a.afficherAlcool;
 	}
+	
 	/**
 	 * @param idAlcool
 	 * @param idProduit
+	 * @param nomAlcool
+	 * @param prixUnitaire
+	 * @param idFamille
+	 * @param familleAlcool
+	 * @param idProvenanceAlcool
+	 * @param provenanceAlcool
+	 * @param degréAlcool
+	 * @param goutAlcool
+	 * @param datePeremption
+	 * @param stockAlcool
+	 * @param quantitéCaisse
+	 * @param imageAlcool
+	 * @param idTypeProduit
+	 * @param afficherProduit
+	 */
+	public Alcool(String idAlcool,  String nomAlcool, Float prixUnitaire, 
+			Integer idFamille,String familleAlcool, Integer idProvenanceAlcool,
+			String provenanceAlcool, Integer degréAlcool,String goutAlcool,
+			String datePeremption, Integer stockAlcool, Integer quantitéCaisse, 
+			String imageAlcool,	Integer idTypeProduit, Integer afficherProduit) 
+	{
+		super();
+		this.idAlcool = idAlcool;
+		this.nomAlcool = nomAlcool;
+		this.prixUnitaire = prixUnitaire;
+		this.idFamille = idFamille;
+		this.familleAlcool = familleAlcool;
+		this.idProvenanceAlcool = idProvenanceAlcool;
+		this.provenanceAlcool = provenanceAlcool;
+		this.degréAlcool = degréAlcool;
+		this.goutAlcool = goutAlcool;
+		this.datePeremption = datePeremption;
+		this.stockAlcool = stockAlcool;
+		this.quantitéCaisse = quantitéCaisse;
+		this.imageAlcool = imageAlcool;
+		this.idTypeProduit = idTypeProduit;
+		this.afficherAlcool = afficherProduit;
+	}
+	
+	//Constructeur avec tous les champs de la Db
+	/**
+	 * @param idAlcool
 	 * @param nomAlcool
 	 * @param prixUnitaire
 	 * @param idFamille
@@ -70,15 +123,15 @@ public class Alcool {
 	 * @param quantitéCaisse
 	 * @param imageAlcool
 	 * @param idTypeProduit
-	 * @param afficherProduit
+	 * @param afficherAlcool
 	 */
-	public Alcool(Integer idAlcool, Integer idProduit, String nomAlcool, Integer prixUnitaire, Integer idFamille,
-			Integer idProvenanceAlcool, Integer degréAlcool, String goutAlcool, String datePeremption,
-			Integer stockAlcool, Integer quantitéCaisse, String imageAlcool, Integer idTypeProduit,
-			Integer afficherProduit) {
+	public Alcool(String idAlcool, String nomAlcool, Float prixUnitaire, 
+				Integer idFamille, Integer idProvenanceAlcool,
+			Integer degréAlcool, String goutAlcool, String datePeremption, 
+			Integer stockAlcool, Integer quantitéCaisse,
+			String imageAlcool, Integer idTypeProduit, Integer afficherAlcool) {
 		super();
 		this.idAlcool = idAlcool;
-		this.idProduit = idProduit;
 		this.nomAlcool = nomAlcool;
 		this.prixUnitaire = prixUnitaire;
 		this.idFamille = idFamille;
@@ -90,20 +143,14 @@ public class Alcool {
 		this.quantitéCaisse = quantitéCaisse;
 		this.imageAlcool = imageAlcool;
 		this.idTypeProduit = idTypeProduit;
-		this.afficherProduit = afficherProduit;
+		this.afficherAlcool = afficherAlcool;
 	}
 	
-	public Integer getIdAlcool() {
+	public String getIdAlcool() {
 		return idAlcool;
 	}
-	public void setIdAlcool(Integer idAlcool) {
+	public void setIdAlcool(String idAlcool) {
 		this.idAlcool = idAlcool;
-	}
-	public Integer getIdProduit() {
-		return idProduit;
-	}
-	public void setIdProduit(Integer idProduit) {
-		this.idProduit = idProduit;
 	}
 	public String getNomAlcool() {
 		return nomAlcool;
@@ -111,20 +158,34 @@ public class Alcool {
 	public void setNomAlcool(String nomAlcool) {
 		this.nomAlcool = nomAlcool;
 	}
-	public Integer getPrixUnitaire() {
+	public Float getPrixUnitaire() {
 		return prixUnitaire;
 	}
-	public void setPrixUnitaire(Integer prixUnitaire) {
+	public void setPrixUnitaire(Float prixUnitaire) {
 		this.prixUnitaire = prixUnitaire;
 	}
 	public Integer getIdFamille() {
 		return idFamille;
 	}
+	public void setFamilleAlcool(String familleAlcool) {
+
+		this.familleAlcool = familleAlcool;
+	}
+	public String getFamille() {
+		return familleAlcool;
+	}
 	public void setIdFamille(Integer idFamille) {
+
 		this.idFamille = idFamille;
 	}
 	public Integer getIdProvenanceAlcool() {
 		return idProvenanceAlcool;
+	}
+	public void setIdProvenanceAlcool(String provenanceAlcool) {
+		this.provenanceAlcool = provenanceAlcool;
+	}
+	public String getProvenanceAlcool() {
+		return provenanceAlcool;
 	}
 	public void setIdProvenanceAlcool(Integer idProvenanceAlcool) {
 		this.idProvenanceAlcool = idProvenanceAlcool;
@@ -171,17 +232,10 @@ public class Alcool {
 	public void setIdTypeProduit(Integer idTypeProduit) {
 		this.idTypeProduit = idTypeProduit;
 	}
-	public Integer getAfficherProduit() {
-		return afficherProduit;
+	public Integer getAfficherAlcool() {
+		return afficherAlcool;
 	}
-	public void setAfficherProduit(Integer afficherProduit) {
-		this.afficherProduit = afficherProduit;
+	public void setAfficherAlcool(Integer afficherAlcool) {
+		this.afficherAlcool = afficherAlcool;
 	}
-	
-	
-	
-	
-	 
-	 
-
 }

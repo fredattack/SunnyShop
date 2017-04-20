@@ -60,7 +60,9 @@
      -fx-text-alignment: center;	
      -fx-font-weight: bold;
      -fx-prompt-text-fill: derive(-fx-control-inner-background,-30%);
+     -fx-prompt-text-fill: #625349;
 }
+
 
 .Table{
 	-fx-background-color:  #EBEFCB;	
@@ -92,6 +94,10 @@
     /*-fx-min-height: 100px;
     -fx-max-height: 100px;*/  
    
+}
+
+.descriptionCol {
+	-fx-min-width: 270px;
 }
 
 .gridChange{
@@ -166,8 +172,6 @@
     -fx-max-width: 50px;
 }
 
-	
-
 /*
  *	gestionStockVin 
   */
@@ -184,3 +188,32 @@
     -fx-font-size: 18px;
     -fx-font-weight: bold;
   }
+  
+  .OrderList{
+  	-fx-min-width: 500px;
+    -fx-max-width: 500px;
+    -fx-min-Height: 300px;
+    -fx-max-Height: 300px;
+  
+  }
+  .OrderList .table-column,.TableUser .table-column{
+  -fx-alignment: CENTER;
+}
+	.TableUser{
+	-fx-min-Height: 300px;
+    -fx-max-Height: 300px;
+    -fx-min-width: 1000px;
+    -fx-max-width: 1000px;
+}
+
+.gridClientDetail{
+	fx-background-color:#98D6CC;
+}
+.gridClientDetail .label{
+	 -fx-font-size: 18px;
+	 -fx-font-weight: normal;
+}
+
+.gridClientDetail .lbTitre{
+    -fx-underline:true;
+}
