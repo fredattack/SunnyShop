@@ -67,7 +67,8 @@ public class User {
 	 * @param role
 	 * @param totalAchat 
 	 */
-	public User(Integer idUser, String nameUser, String login, String surnameUser, String adresUser, String password,
+	public User(Integer idUser, String nameUser, String login, 
+			String surnameUser, String adresUser, String password,
 			String birthDate, String role, Float totalAchat) {		
 		this.idUser = idUser;
 		this.firstName = nameUser;

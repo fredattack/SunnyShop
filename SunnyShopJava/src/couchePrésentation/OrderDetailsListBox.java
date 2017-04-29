@@ -4,6 +4,7 @@ import classesMétiers.LigneCommande;
 import classesMétiers.Order;
 import classesMétiers.Vin;
 import coucheAccesBd.ExceptionAccesBd;
+import coucheMétier.ExceptionMetier;
 import coucheMétier.Metier;
 import javafx.collections.FXCollections;
 import javafx.scene.Scene;
@@ -53,12 +54,13 @@ public class OrderDetailsListBox {
 		Button btQuit = new Button("_X");
 		btQuit.getStyleClass().add("btImage");
 		Label laCom = new Label("Commande N°: "+ laCommande.getIdOrder());
-		
+	
 		// TODO Auto-generated method stub
 		anchor.getStyleClass().add("anchor");
 		// Position AnchorPane
 				
 				btQuit.setOnAction(e -> { stage.close(); });
+				
 				anchor.setTopAnchor(laCom,10.0);
 				anchor.setLeftAnchor(laCom, 10.0);
 				anchor.setTopAnchor(btQuit, 10.0);

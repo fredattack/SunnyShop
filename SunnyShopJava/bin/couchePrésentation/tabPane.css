@@ -1,0 +1,219 @@
+*{
+	/*  -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif; */
+}
+ 
+ .vboxSectionLeft .button{
+ 	  -fx-min-height: 200px;
+    -fx-max-height: 200px;   
+ }
+
+.scene,.anchor,.Zone{
+	-fx-background-color: #D8E4D1;
+}
+
+
+.tab:hover .label{
+	-fx-rotate: 90;
+	-fx-font-size : 26px;
+	-fx-text-fill : #625349;
+	/*-fx-font-family: "Segoe UI Semibold";*/
+}
+
+.main {
+		-fx-background-color: #625349;
+}
+
+.button{
+	-fx-background-color: #625349;     
+    -fx-text-fill: #BBD861;   
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-min-width: 200px;
+    -fx-max-width: 200px;
+     -fx-min-height: 50px;
+    -fx-max-height: 50px;    
+     -fx-padding: 5 22 5 22;   
+    -fx-border-color: #625349;
+    -fx-border-width: 2;
+    -fx-background-radius: 0;   
+   /*  -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif; */
+    -fx-background-insets: 0 0 0 0, 0, 1, 2;
+}
+
+.button:hover {
+	-fx-background-color: #98D6CC;
+	-fx-border: none ;
+	-fx-focus-color: transparent;
+	-fx-text-fill : #625349;
+}
+
+ .btChercher{
+	-fx-padding: 0 0 0 15px;
+}
+
+.text-field{
+	-fx-min-height: 50px;
+    -fx-max-height: 50px; 
+     -fx-font-size: 18px;   
+     -fx-background-color:#98D6CC ;
+     -fx-text-fill : #625349;
+     -fx-text-alignment: center;	
+     -fx-font-weight: bold;
+     -fx-prompt-text-fill: derive(-fx-control-inner-background,-30%);
+     -fx-prompt-text-fill: #625349;
+}
+
+
+.Table{
+	-fx-background-color:  #EBEFCB;	
+	-fx-focus-color: transparent;
+	-fx-text-fill : #625349;
+	-fx-min-width: 770px;
+    -fx-max-width: 770px;
+   
+}
+.TableOrder{
+	-fx-background-color:  #EBEFCB;	
+	-fx-focus-color: transparent;
+	-fx-text-fill : #625349;
+	-fx-min-width: 1000px;
+    -fx-max-width: 1000px;
+    
+    -fx-min-height: 350px;
+    -fx-max-height: 350px;
+   
+	
+}
+
+.Table .column-header, .column-header .label {
+	-fx-background-color:  #98D6CC;
+    -fx-text-fill: #625349;
+    -fx-font-weight: bold;
+     -fx-border-color: #625349;
+    -fx-border-width: 1;
+    /*-fx-min-height: 100px;
+    -fx-max-height: 100px;*/  
+   
+}
+
+.descriptionCol {
+	-fx-min-width: 270px;
+}
+
+.gridChange{
+	-fx-min-width: 770px;
+    -fx-max-width: 770px;
+    -fx-padding : 5px 5px ;
+    -fx-border-color: #625349;
+    -fx-border-width: 1;
+    -fx-text-alignment: center;  
+    /*-fx-background-color: #625349;*/
+    /*-fx-grid-lines-visible:true;*/
+}
+
+.vboxRightImage{
+	-fx-Background-color:#EBEFCB;
+	-fx-border-color: #625349;
+    -fx-border-width: 1;
+	-fx-min-width: 200px;
+    -fx-max-width: 200px;
+    -fx-min-height: 200px;
+    -fx-max-height: 200px;
+}
+
+.btImage{
+	-fx-min-width: 100px;
+    -fx-max-width: 100px;
+    -fx-border-width: 2;
+    -fx-background-radius: 0;   
+   -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif; 
+     -fx-background-insets: 0 0 0 0, 0, 1, 2;
+}
+.AnnulerValider{
+	-fx-min-width: 85px;
+    -fx-max-width: 85px;
+    -fx-font-size: 25px;  
+}
+.rbAfficher{
+	-fx-text-fill : #625349;
+     -fx-text-alignment: center;	
+     -fx-font-weight: bold;
+}
+
+.gridChange .label{
+	-fx-text-fill: #625349;  
+    -fx-font-weight: bold;
+}
+
+.cbSaveur .list-cell, .cbMat .list-cell, .cbType .list-cell, .cbProvenance .list-cell,.cbFamille .list-cell,.cbTaille .list-cell{
+	-fx-min-width: 150px;
+    -fx-max-width: 150px;
+    -fx-font-weight: bold;
+    -fx-min-height: 50px;
+    -fx-max-height: 50px;  
+     -fx-background-color:#EBEFCB ;
+     -fx-text-fill : #625349;
+     -fx-text-alignment: center;	
+     -fx-font-weight: bold;
+	 -fx-font-size: 18px;  
+}
+
+.cbSaveur .cbMat .cbType .cbProvenance .cbFamille,.cbTaille{
+	fx-background-color:#98D6CC ;
+}
+
+.tfQuantiteCaisse, .tfStockVin,.tfStockAlcool,.tfDegre,.tfNouveaustock,.tfTotal{
+	-fx-min-width: 100px;
+    -fx-max-width: 100px; 
+}
+
+.tfStock{
+	-fx-min-width: 50px;
+    -fx-max-width: 50px;
+}
+
+/*
+ *	gestionStockVin 
+  */
+ .anchor .label{
+  	
+  	-fx-text-fill: #625349;   
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+  }
+  
+  .check-box{
+  	
+  	-fx-text-fill: #625349;   
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+  }
+  
+  .OrderList{
+  	-fx-min-width: 500px;
+    -fx-max-width: 500px;
+    -fx-min-Height: 300px;
+    -fx-max-Height: 300px;
+  
+  }
+  .OrderList .table-column,.TableUser .table-column{
+  -fx-alignment: CENTER;
+}
+	.TableUser{
+	-fx-min-Height: 300px;
+    -fx-max-Height: 300px;
+    -fx-min-width: 1000px;
+    -fx-max-width: 1000px;
+}
+
+.gridClientDetail{
+	fx-background-color:#98D6CC;
+}
+.gridClientDetail .label{
+	 -fx-font-size: 18px;
+	 -fx-font-weight: normal;
+}
+
+.gridClientDetail .lbTitre{
+    -fx-underline:true;
+}

@@ -1,6 +1,7 @@
 package couchePrésentation;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
@@ -17,6 +18,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
+
 import classesMétiers.*;
 import coucheAccesBd.ExceptionAccesBd;
 import coucheMétier.ExceptionMetier;
@@ -28,6 +32,8 @@ public class ZoneCommande {
 	private Order laCommande = new Order();
 	private LigneCommande laLigne;
 	private TableView<Order> OrderList;
+	private ObservableList<Order> laListe = null;
+	private Float totalAchatClient;
 	GridPane gridClientDetail = new GridPane();
 	private TableView<LigneCommande> OrderDetailList;
 	Button btShipped = new Button("Expédier");
@@ -68,6 +74,7 @@ public class ZoneCommande {
 		//Ajout des donner depuis db
 			try
 			{
+			laListe=FXCollections.observableArrayList(laCoucheMétier.ListerOrder());
 			OrderList.itemsProperty().setValue(FXCollections.observableArrayList(laCoucheMétier.ListerOrder()));
 			}catch(Exception ex)
 			{			
@@ -128,16 +135,14 @@ public class ZoneCommande {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		  
 	   		});
-	   	
 	}
 	
 	private void createClientDetail(AnchorPane anchorZone,Stage mainStage,Integer idUser) throws ExceptionAccesBd, ExceptionMetier
 	{
 		
 		User user = new User();
-		user = laCoucheMétier.ListerUserSpecifique(idUser);
+		user = laCoucheMétier.LireUserSpecifique(idUser);
 		
 		anchorZone.getChildren().add(gridClientDetail);
 		gridClientDetail.setHgap(20);
@@ -174,11 +179,24 @@ public class ZoneCommande {
 		gridClientDetail.add(lbBirthDate, 0, 3, 5, 1);
 		GridPane.setHalignment(lbBirthDate, HPos.LEFT);
 		
-		Label lbTotal = new Label("Total des achats: "+String.valueOf(user.getTotalAchat())+" €");
+		Label lbTotal = new Label("Total des achats: "+String.valueOf(countClientTotal(user.getIdUser()))+" €");
 		gridClientDetail.add(lbTotal, 0, 4, 5, 1);
 		GridPane.setHalignment(lbTotal, HPos.LEFT);
 		
 		
+	}
+	
+	private Float countClientTotal(int idUser){
+		Float totalAchatClient = new Float(0);
+		for(Order O : laListe)
+		{
+			if(O.getIdUserOrder()== idUser){
+				totalAchatClient+=O.getTotalPrice();
+			}
+		}
+		
+		
+		return totalAchatClient;
 	}
 
 	private void createOrderDetailList(AnchorPane anchorZone,Stage MainStage) {

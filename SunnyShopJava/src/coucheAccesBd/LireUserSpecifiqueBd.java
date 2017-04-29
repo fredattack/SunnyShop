@@ -7,21 +7,21 @@ import java.sql.ResultSet;
 import classesMétiers.Alcool;
 import classesMétiers.User;
 
-public class ListerUserSpecifiqueBd extends OperationBd {
+public class LireUserSpecifiqueBd extends OperationBd {
 
 	private User lUser;
 	private Integer leNum;
 	
 	public User getUser(){ return lUser;}
 	
-	public ListerUserSpecifiqueBd(Integer LeNum){ 
-		super("ListerUserSpecifique");
+	public LireUserSpecifiqueBd(Integer LeNum){ 
+		super("LireUserSpecifique");
 		leNum=LeNum;
 	}
 	
 	public int ExecuterRequete (Connection SqlConn) throws Exception
 	{
-		CallableStatement sqlCmd = SqlConn.prepareCall("{ call ListerUserSpecifique(?) }");
+		CallableStatement sqlCmd = SqlConn.prepareCall("{ call LireUserSpecifique(?) }");
 	sqlCmd.setInt(1, leNum);
 	ResultSet sqlRes = sqlCmd.executeQuery();
 	while (sqlRes.next() == true)
@@ -30,7 +30,10 @@ public class ListerUserSpecifiqueBd extends OperationBd {
 					sqlRes.getString(3),
 					sqlRes.getString(4),
 					sqlRes.getString(5),
-					sqlRes.getFloat(6));
+					sqlRes.getString(6),
+					sqlRes.getString(7),
+					sqlRes.getString(8),
+					sqlRes.getFloat(9));
 	sqlRes.close();
 	return (lUser != null)? 1 : 0;
 	}

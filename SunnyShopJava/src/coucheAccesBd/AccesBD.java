@@ -265,9 +265,9 @@ public class AccesBD
 			ExecuterRequete(opération);
 			return opération.getListe();
 		}
-	 public User ListerUserSpecifique(Integer idUser)throws ExceptionAccesBd, ExceptionMetier{
+	 public User LireUserSpecifique(Integer idUser)throws ExceptionAccesBd, ExceptionMetier{
 
-		 	ListerUserSpecifiqueBd operation = new ListerUserSpecifiqueBd(idUser);
+		 	LireUserSpecifiqueBd operation = new LireUserSpecifiqueBd(idUser);
 			ExecuterRequete(operation); 
 			return operation.getUser();
 	}

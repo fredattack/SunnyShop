@@ -171,8 +171,10 @@ public class Metier
 		 return CoucheAccesBd.ListerOrderClients(idUser);
 	 }
 	 
-	 public User ListerUserSpecifique(Integer idUser) throws ExceptionAccesBd, ExceptionMetier{
-			return CoucheAccesBd.ListerUserSpecifique(idUser);
+	 public User LireUserSpecifique(Integer idUser) throws ExceptionAccesBd, ExceptionMetier{
+			return CoucheAccesBd.LireUserSpecifique(idUser);
 		}
+
+
 	 
 }

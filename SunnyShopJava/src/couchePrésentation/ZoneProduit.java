@@ -48,7 +48,7 @@ public class ZoneProduit {
 	ObservableList<String> laListeSaveur = null;
 	ObservableList<String> laListeMatiere = null;
 	ObservableList<Vin> laListeDeVin = null;
-	
+	Metier laCoucheMétier = new Metier();
 	private Vin leVin; 
 	private int leMaxNumVin;
 
@@ -70,7 +70,7 @@ public class ZoneProduit {
 	private static GridPane gridChange = new GridPane();
 	private ImageView imgView = new ImageView();
 
-	Metier laCoucheMétier = new Metier();
+	
 	
 	//Constructeur
 	public ZoneProduit() throws ExceptionAccesBd {
@@ -79,13 +79,14 @@ public class ZoneProduit {
 		laListeType = FXCollections.observableArrayList(laCoucheMétier.ListerTypeVin());
 		laListeMaturation = FXCollections.observableArrayList(laCoucheMétier.ListerMaturationVin());
 		laListeSaveur = FXCollections.observableArrayList(laCoucheMétier.ListerSaveurVin());
-		leMaxNumVin = laCoucheMétier.GetMaxNumVin()+1;
+		leMaxNumVin = laCoucheMétier.GetMaxNumVin()+2;
 		//les listes Alcool
 		laListeProvenanceAlcool = FXCollections.observableArrayList(laCoucheMétier.ListerProvenanceAlcool());
 		laListeFamilleAlcool = FXCollections.observableArrayList(laCoucheMétier.ListerFamilleAlcool());
 		leMaxNumAlcool=laCoucheMétier.GetMaxNumAlcool();
 		//les listes Chemise
 		laListeMatiere = FXCollections.observableArrayList(laCoucheMétier.ListerMatièreChemise());
+		
 	}
 
 	/*
@@ -456,6 +457,10 @@ public class ZoneProduit {
 			}
 		else //Modifier
 			{
+				
+				
+				if(leVin.getAfficherVin()==1)rbAfficher.setSelected(true);
+				else rbAfficher.setSelected(false);
 				tfNomSearch.setText(leVin.getNomVin());
 				tfQuantiteCaisse.setText(String.valueOf(leVin.getQuantitéCaisse()));
 				tfMillesime.setText(leVin.getMillesime());
@@ -551,7 +556,7 @@ public class ZoneProduit {
 		if(rbAfficher.isSelected()) afficher=1 ;
 		else afficher= 0;
 
-		leVin.setIdVin("00."+String.valueOf(leMaxNumVin+1)+".0"+cbType.getSelectionModel().getSelectedIndex()+
+		leVin.setIdVin("00."+String.valueOf(leMaxNumVin)+".0"+cbType.getSelectionModel().getSelectedIndex()+
 				"0"+cbProvenance.getSelectionModel().getSelectedIndex());
 		leVin.setNomVin(tfNomSearch.getText());
 		leVin.setPrixUnitaire(Float.valueOf(tfPrix.getText()));
@@ -779,11 +784,13 @@ public class ZoneProduit {
 			btValider.setOnAction(e -> 
 			{
 			ajouterUnAlcool(anchorZone, gridChange, MainStage, tfNomSearch, tfPrix, tfQuantiteCaisse, tfGout,
-					tfStockAlcool, tfDate, cbFamille, cbProvenance, tfDegreAlcool, rbAfficher);
+					tfStockAlcool, tfDate, cbFamille, cbProvenance, tfDegreAlcool, rbAfficher,tfImageName);
 				});
 			}
 			else //Modifier
 				{
+				if(lAlcool.getAfficherAlcool()==1)rbAfficher.setSelected(true);
+				else rbAfficher.setSelected(false);
 				tfNomSearch.setText(lAlcool.getNomAlcool());
 				tfQuantiteCaisse.setText(String.valueOf(lAlcool.getQuantitéCaisse()));
 				tfPrix.setText(String.valueOf(lAlcool.getPrixUnitaire()));
@@ -874,7 +881,7 @@ public class ZoneProduit {
 	public void ajouterUnAlcool(AnchorPane anchorZone, GridPane gridChange, Stage MainStage, TextField tfNomSearch,
 			TextField tfPrix, TextField tfQuantiteCaisse, TextField tfGout, TextField tfStockAlcool, TextField tfDate,
 			ComboBox<String> cbFamille, ComboBox<String> cbProvenance, TextField tfDegreAlcool,
-			ToggleButton rbAfficher) {
+			ToggleButton rbAfficher,TextField tfImageName) {
 		gridChange.setVisible(false);
 			
 			//Ajouter Alcool
@@ -894,7 +901,7 @@ public class ZoneProduit {
 			lAlcool.setGoutAlcool(tfGout.getText());
 			lAlcool.setQuantitéCaisse(Integer.valueOf(tfQuantiteCaisse.getText()));
 			lAlcool.setStockAlcool(Integer.valueOf(tfStockAlcool.getText()));
-			lAlcool.setImageAlcool("pasdimage.jpg");
+			lAlcool.setImageAlcool(tfImageName.getText());
 			lAlcool.setIdTypeProduit(Integer.valueOf("1"));
 			lAlcool.setAfficherAlcool(afficher);
 			
@@ -1016,8 +1023,6 @@ public class ZoneProduit {
 			//Chemise tempAlcool = new Alcool();
 			if (nouvChemise.getIdProduit() != null) 
 			{
-				
-			
 				//constructFullChemise
 				try
 				{
@@ -1221,11 +1226,11 @@ public class ZoneProduit {
 		
 		//ajout de chaque Taille
 		//taille0
-		if(tfXs.getText()!="XS" ||tfXs.getText()!="" )
+		if(tfXs.getText()!="XS" ||tfXs.getText()!="")
 		{	
 			laChemise.setIdProduit("02."+"0"+String.valueOf(lbNumModel2.getText())+".0"+"0");
 			laChemise.setIdTaille(0);
-			if(tfXs.getText()=="XS" ||tfXs.getText()=="")
+			if(tfXs.getText().isEmpty())
 			{
 				laChemise.setStockChemise(0);
 			}
@@ -1250,12 +1255,12 @@ public class ZoneProduit {
 		
 		}
 		//taille1
-		if(tfS.getText()!="S" ||tfXs.getText()!="" )
+		if(tfS.getText()!="S" ||tfS.getText()!="" )
 		{	
-			laChemise.setIdProduit("02"+"0"+String.valueOf(lbNumModel2.getText())+"0"+"1");
+			laChemise.setIdProduit("02."+"0"+String.valueOf(lbNumModel2.getText())+".0"+"1");
 			laChemise.setIdTaille(1);
 			
-			if(tfXs.getText()=="S" ||tfXs.getText()=="")
+			if(tfS.getText().isEmpty())
 			{
 				laChemise.setStockChemise(0);
 			}
@@ -1283,10 +1288,10 @@ public class ZoneProduit {
 		//taille2
 		if(tfM.getText()!="M" ||tfXs.getText()!="" )
 		{	
-			laChemise.setIdProduit("02"+"0"+String.valueOf(lbNumModel2.getText())+"0"+"2");
+			laChemise.setIdProduit("02."+"0"+String.valueOf(lbNumModel2.getText())+".0"+"2");
 			laChemise.setIdTaille(2);
 			
-			if(tfXs.getText()=="M" ||tfXs.getText()=="")
+			if(tfM.getText().isEmpty())
 			{
 				laChemise.setStockChemise(0);
 			}
@@ -1310,11 +1315,11 @@ public class ZoneProduit {
 		
 		}
 		//taille3
-		if(tfL.getText()!="L" ||tfXs.getText()!="" )
+		if(tfL.getText()!="L" ||tfL.getText()!="" )
 		{	
-			laChemise.setIdProduit("02"+"0"+String.valueOf(lbNumModel2.getText())+"0"+"3");
+			laChemise.setIdProduit("02."+"0"+String.valueOf(lbNumModel2.getText())+".0"+"3");
 			laChemise.setIdTaille(3);
-			if(tfXs.getText()=="L" ||tfXs.getText()=="")
+			if(tfL.getText().isEmpty())
 			{
 				laChemise.setStockChemise(0);
 			}
@@ -1340,11 +1345,11 @@ public class ZoneProduit {
 		
 		}
 		//taille4
-		if(tfXl.getText()!="XL" ||tfXs.getText()!="" )
+		if(tfXl.getText()!="XL" ||tfXl.getText()!="" )
 		{	
-			laChemise.setIdProduit("02"+"0"+String.valueOf(lbNumModel2.getText())+"0"+"4");
+			laChemise.setIdProduit("02."+"0"+String.valueOf(lbNumModel2.getText())+".0"+"4");
 			laChemise.setIdTaille(4);
-			if(tfXs.getText()=="XL" ||tfXs.getText()=="")
+			if(tfXl.getText().isEmpty())
 			{
 				laChemise.setStockChemise(0);
 			}
@@ -1370,11 +1375,14 @@ public class ZoneProduit {
 		
 		}
 		//taille5
-		if(tfXXl.getText()!="XXL" ||tfXs.getText()!="" )
+		if(tfXXl.getText()!="XXL" ||tfXXl.getText()!="" )
 		{	
-			laChemise.setIdProduit("02"+"0"+lbNumModel2.getText()+"0"+"5");
+			tfXXl.promptTextProperty().equals(true);
+			
+			laChemise.setIdProduit("02."+"0"+lbNumModel2.getText()+".0"+"5");
 			laChemise.setIdTaille(5);
-			if(tfXs.getText()=="XXL" ||tfXs.getText()=="")
+			//if(tfXs.getText()=="XXL" ||tfXs.getText()=="")
+				if(tfXXl.getText().isEmpty())
 			{
 				laChemise.setStockChemise(0);
 			}
@@ -1404,7 +1412,7 @@ public class ZoneProduit {
 				new MessageBox(MainStage, AlertType.WARNING, "L'ajout n'a pas eu lieu pour les tailles :"+ listeErreurAjout+ "!");}
 			
 			else{ 
-				new MessageBox(MainStage, AlertType.INFORMATION, "Les " +String.valueOf(compteurAjout) +" /chemises ont été ajoutées!");
+				new MessageBox(MainStage, AlertType.INFORMATION, "Les " +String.valueOf(compteurAjout) +" chemises ont été ajoutées!");
 				
 				
 			}
@@ -1440,9 +1448,7 @@ public class ZoneProduit {
 		//taille0
 		if(tfXs.getText()!="XS" ||tfXs.getText()!="" )
 		{	
-			
-			
-			if(tfXs.getText()=="XS" ||tfXs.getText()=="")
+			if(tfXs.getText().isEmpty())
 			{
 				laListeChemise.get(0).setStockChemise(0);
 			}
@@ -1467,11 +1473,11 @@ public class ZoneProduit {
 		
 		}
 		//taille1
-		if(tfS.getText()!="S" ||tfXs.getText()!="" )
+		if(tfS.getText()!="S" ||tfS.getText()!="" )
 		{	
 			
 			
-			if(tfXs.getText()=="S" ||tfXs.getText()=="")
+			if(tfS.getText().isEmpty())
 			{
 				laListeChemise.get(1).setStockChemise(0);
 			}
@@ -1497,10 +1503,10 @@ public class ZoneProduit {
 		}
 
 		//taille2
-		if(tfM.getText()!="M" ||tfXs.getText()!="" )
+		if(tfM.getText()!="M" ||tfM.getText()!="" )
 		{	
 			
-			if(tfXs.getText()=="M" ||tfXs.getText()=="")
+			if(tfM.getText().isEmpty())
 			{
 				laListeChemise.get(2).setStockChemise(0);
 			}
@@ -1524,10 +1530,10 @@ public class ZoneProduit {
 		
 		}
 		//taille3
-		if(tfL.getText()!="L" ||tfXs.getText()!="" )
+		if(tfL.getText()!="L" ||tfL.getText()!="" )
 		{	
 			
-			if(tfXs.getText()=="L" ||tfXs.getText()=="")
+			if(tfL.getText().isEmpty())
 			{
 				laListeChemise.get(3).setStockChemise(0);
 			}
@@ -1553,10 +1559,10 @@ public class ZoneProduit {
 		
 		}
 		//taille4
-		if(tfXl.getText()!="XL" ||tfXs.getText()!="" )
+		if(tfXl.getText()!="XL" ||tfXl.getText()!="" )
 		{	
 			
-			if(tfXs.getText()=="XL" ||tfXs.getText()=="")
+			if(tfXl.getText().isEmpty())
 			{
 				laListeChemise.get(4).setStockChemise(0);
 			}
@@ -1564,13 +1570,14 @@ public class ZoneProduit {
 			
 			try 
 				{
+				
 				if(laCoucheMétier.ModifierChemise(laListeChemise.get(4))==0){
 					listeErreurAjout.add("XL");
 				}
 				else{ 
 					compteurAjout++;
-						
 					}
+
 				} 
 				catch (ExceptionMetier e1) {
 					// TODO Auto-generated catch block
@@ -1582,10 +1589,10 @@ public class ZoneProduit {
 		
 		}
 		//taille5
-		if(tfXXl.getText()!="XXL" ||tfXs.getText()!="" )
+		if(tfXXl.getText()!="XXL" ||tfXXl.getText()!="" )
 		{	
 			
-			if(tfXs.getText()=="XXL" ||tfXs.getText()=="")
+			if(tfXXl.getText().isEmpty())
 			{
 				laListeChemise.get(5).setStockChemise(0);
 			}
@@ -1608,6 +1615,8 @@ public class ZoneProduit {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+			
+			
 			if(compteurAjout!=6){
 				String leMessage=new String();
 				for (String t : listeErreurAjout)
